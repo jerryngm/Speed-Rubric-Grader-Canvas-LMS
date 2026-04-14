@@ -1,0 +1,3815 @@
+/* Rubric Grader Modal Styles */
+
+/* Design System - CSS Variables */
+#rubric-grader-modal {
+  /* Color Palette */
+  --color-primary: #0374B5;
+  --color-primary-dark: #025a8e;
+  --color-primary-light: #e8f5f9;
+  --color-primary-lighter: #e3f2fd;
+  --color-primary-lightest: #bbdefb;
+
+  --color-success: #4CAF50;
+  --color-success-dark: #2e7d32;
+  --color-success-light: #e8f5e9;
+  --color-success-lighter: #c8e6c9;
+
+  --color-error: #f44336;
+  --color-error-dark: #c62828;
+  --color-error-darker: #d32f2f;
+  --color-error-light: #ffebee;
+  --color-error-lighter: #ffcdd2;
+
+  --color-warning: #ffc107;
+  --color-warning-dark: #f57c00;
+  --color-warning-light: #fff8e6;
+  --color-warning-lighter: #fff3e0;
+
+  --color-info: #2196F3;
+  --color-info-dark: #1976D2;
+  --color-info-darker: #0d47a1;
+
+  /* Neutral Colors */
+  --color-text-primary: #333;
+  --color-text-secondary: #666;
+  --color-text-tertiary: #999;
+  --color-text-placeholder: #aaa;
+  --color-text-disabled: #888;
+
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-tertiary: #f5f5f5;
+  --color-bg-quaternary: #fafafa;
+  --color-bg-hover: #f0f4f8;
+  --color-bg-modified: #fff8e6;
+  --color-bg-gradient-start: #f5f7fa;
+  --color-bg-gradient-end: #e8ecf1;
+
+  --color-border: #e0e0e0;
+  --color-border-light: #ddd;
+  --color-border-lighter: #ccc;
+
+  /* Typography Scale */
+  --font-size-xs: 0.6875rem;    /* 11px */
+  --font-size-sm: 0.75rem;      /* 12px */
+  --font-size-base: 0.875rem;   /* 14px */
+  --font-size-lg: 1rem;         /* 16px */
+  --font-size-xl: 1.125rem;     /* 18px */
+  --font-size-2xl: 1.25rem;     /* 20px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /* Spacing Scale (4px base) */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-7: 1.75rem;   /* 28px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;  /* 4px */
+  --radius-md: 0.5rem;   /* 8px */
+  --radius-lg: 0.75rem;  /* 12px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-button: 0 1px 3px rgba(3, 116, 181, 0.3);
+  --shadow-button-hover: 0 2px 5px rgba(3, 116, 181, 0.4);
+  --shadow-comment: 0 1px 3px rgba(33, 150, 243, 0.2);
+  --shadow-comment-hover: 0 2px 5px rgba(33, 150, 243, 0.3);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Z-index Scale */
+  --z-modal: 10000;
+  --z-modal-nested: 10001;
+  --z-modal-settings: 10002;
+  --z-modal-confirm: 10003;
+}
+
+/* CSS Containment and Isolation */
+#rubric-grader-modal {
+  contain: layout style paint;
+  isolation: isolate;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-modal);
+}
+
+#rubric-grader-modal *,
+#rubric-grader-modal *::before,
+#rubric-grader-modal *::after {
+  box-sizing: border-box !important;
+}
+
+#rubric-grader-modal.visible {
+  display: block;
+}
+
+#rubric-grader-modal .rubric-grader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#rubric-grader-modal .rubric-grader-content {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  width: 90vw;
+  height: 90vh;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  resize: both;
+  min-width: 600px;
+  min-height: 400px;
+}
+
+#rubric-grader-modal .rubric-grader-content::-webkit-resizer {
+  background: var(--color-primary);
+  border-radius: 0 0 var(--radius-md) 0;
+}
+
+#rubric-grader-modal .rubric-grader-header {
+  height:55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+#rubric-grader-modal .rubric-grader-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#rubric-grader-modal .rubric-grader-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Status display in header */
+#rubric-grader-modal .rubric-grader-header-actions > .rubric-grader-status {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+#rubric-grader-modal .rubric-grader-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .rubric-grader-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .rubric-grader-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 2px solid var(--color-border);
+  background: linear-gradient(180deg, #fafbfc 0%, #f5f7fa 100%);
+  gap: var(--space-5);
+  min-height: 70px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Collapse toggle wrapper */
+#rubric-grader-modal .toolbar-collapse-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Collapse toggle button */
+#rubric-grader-modal .toolbar-collapse-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+#rubric-grader-modal .toolbar-collapse-label {
+  font-size: 9px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#rubric-grader-modal .toolbar-collapse-toggle:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #334155;
+}
+
+#rubric-grader-modal .toolbar-collapse-chevron {
+  transition: transform 0.25s ease;
+  transform: rotate(0deg);
+}
+
+#rubric-grader-modal .rubric-grader-toolbar[data-collapsed="true"] .toolbar-collapse-chevron {
+  transform: rotate(-90deg);
+}
+
+/* Toolbar Groups */
+#rubric-grader-modal .toolbar-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Inner containers stretch to equal height */
+#rubric-grader-modal .rubric-grader-filters,
+#rubric-grader-modal .rubric-grader-search-group,
+#rubric-grader-modal .rubric-grader-suffix-wrapper,
+#rubric-grader-modal .rubric-grader-actions {
+  flex: 1;
+}
+
+/* Group Titles */
+#rubric-grader-modal .toolbar-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Shared CSS tooltip */
+#rubric-grader-modal .toolbar-suffix-info,
+#rubric-grader-modal .toolbar-collapse-toggle[data-tip],
+#rubric-grader-modal .toggle-switch-container[data-tip],
+#rubric-grader-modal .rgm-student-action-btn[data-tip],
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip] {
+  position: relative;
+}
+
+#rubric-grader-modal .toolbar-suffix-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  cursor: help;
+  transition: color 0.2s;
+}
+
+#rubric-grader-modal .toolbar-suffix-info:hover {
+  color: #0374B5;
+}
+
+#rubric-grader-modal .toolbar-suffix-info::after,
+#rubric-grader-modal .toolbar-collapse-toggle[data-tip]::after,
+#rubric-grader-modal .toggle-switch-container[data-tip]::after,
+#rubric-grader-modal .rgm-student-action-btn[data-tip]::after,
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#rubric-grader-modal .toolbar-suffix-info:hover::after,
+#rubric-grader-modal .toolbar-collapse-toggle[data-tip]:hover::after,
+#rubric-grader-modal .toolbar-collapse-toggle[data-tip]:focus-visible::after,
+#rubric-grader-modal .toggle-switch-container[data-tip]:hover::after,
+#rubric-grader-modal .toggle-switch-container[data-tip]:focus-within::after,
+#rubric-grader-modal .rgm-student-action-btn[data-tip]:hover::after,
+#rubric-grader-modal .rgm-student-action-btn[data-tip]:focus-visible::after,
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]:hover::after,
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]:focus-visible::after {
+  opacity: 1;
+}
+
+#rubric-grader-modal .toolbar-collapse-toggle[data-tip]::after {
+  content: none;
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn[data-tip]:hover,
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn[data-tip]:focus-visible,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn[data-tip]:hover,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn[data-tip]:focus-visible {
+  z-index: 20;
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn[data-tip]::after,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn[data-tip]::after {
+  top: 0;
+  bottom: auto;
+  left: calc(100% + 8px);
+  transform: none;
+}
+
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]:hover,
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]:focus-visible {
+  z-index: 20;
+}
+
+#rubric-grader-modal .rgm-bulk-student-header-btn[data-tip]::after {
+  content: none;
+}
+
+.rgm-floating-tooltip {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border-radius: 6px;
+  max-width: 180px;
+  white-space: normal;
+  text-align: left;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  z-index: 10004;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rgm-floating-tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn[data-tip]::after {
+  top: calc(100% + 6px);
+  bottom: auto;
+}
+
+/* Search clear buttons */
+#rubric-grader-modal .search-clear-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: #e2e8f0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: #64748b;
+  padding: 0;
+  transition: all 0.15s;
+}
+
+#rubric-grader-modal .search-clear-btn:hover {
+  background: #cbd5e1;
+  color: #334155;
+}
+
+#rubric-grader-modal .rubric-grader-search.has-value .search-clear-btn {
+  display: flex;
+}
+
+#rubric-grader-modal .rubric-grader-search.has-value input {
+  padding-right: 26px !important;
+}
+
+/* Suffix clear button - offset by wrapper padding (var(--space-3)/var(--space-4) = 12px/16px) */
+#rubric-grader-modal .rubric-grader-suffix-wrapper .search-clear-btn {
+  right: 22px;
+  top: calc(var(--space-3) + 14px);
+}
+
+#rubric-grader-modal .rubric-grader-suffix-wrapper.has-value .search-clear-btn {
+  display: flex;
+}
+
+#rubric-grader-modal .rubric-grader-suffix-wrapper.has-value #rubric-grader-comment-suffix {
+  padding-right: 26px !important;
+}
+
+/* Data Source Group */
+#rubric-grader-modal .toolbar-group-source {
+  flex: 0 0 auto;
+}
+
+/* Restore original button container styling */
+#rubric-grader-modal .rubric-grader-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Filters Group */
+#rubric-grader-modal .toolbar-group-filters {
+  flex: 1 1 auto;
+  min-width: 300px;
+}
+
+#rubric-grader-modal .rubric-grader-search-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Comment Suffix Group */
+#rubric-grader-modal .toolbar-group-suffix {
+  flex: 0 1 250px;
+  min-width: 180px;
+}
+
+#rubric-grader-modal .rubric-grader-suffix-wrapper {
+  position: relative;
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+#rubric-grader-modal #rubric-grader-comment-suffix {
+  width: 100%;
+  padding: 6px 10px 6px 38px;
+  border: 1px solid #c7cdd1;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  line-height: 1.4;
+  height: 28px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#rubric-grader-modal .rubric-grader-suffix-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>');
+}
+
+#rubric-grader-modal #rubric-grader-comment-suffix:hover {
+  border-color: #8b969e;
+}
+
+#rubric-grader-modal #rubric-grader-comment-suffix:focus {
+  outline: none;
+  border-color: #0374B5;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 0 2px rgba(3, 116, 181, 0.2);
+}
+
+#rubric-grader-modal #rubric-grader-comment-suffix::placeholder {
+  color: #6B7780;
+}
+
+/* Actions Group */
+#rubric-grader-modal .toolbar-group-actions {
+  flex: 0 0 auto;
+}
+
+#rubric-grader-modal .rubric-grader-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Search Inputs */
+#rubric-grader-modal .rubric-grader-search {
+  flex: 1 1 150px;
+  min-width: 120px;
+  position: relative;
+}
+
+#rubric-grader-modal .search-divider {
+  width: 1px;
+  height: 24px;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .rubric-grader-search input {
+  width: 100%;
+  padding: 6px 10px 6px 38px;
+  border: 1px solid #c7cdd1;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  line-height: 1.4;
+  height: 28px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#rubric-grader-modal .rubric-grader-search input:hover {
+  border-color: #8b969e;
+}
+
+#rubric-grader-modal .rubric-grader-search input:focus {
+  outline: none;
+  border-color: #0374B5;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 0 2px rgba(3, 116, 181, 0.2);
+}
+
+#rubric-grader-modal .rubric-grader-search input::placeholder {
+  color: #6B7780;
+}
+
+#rubric-grader-modal .rubric-grader-search::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 14px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  pointer-events: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Student search: person icon */
+#rubric-grader-modal .rubric-grader-search-student::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>');
+}
+
+/* Criteria search: checklist icon */
+#rubric-grader-modal .rubric-grader-search-criteria::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>');
+}
+
+#rubric-grader-modal .search-divider {
+  display: none; /* No longer needed with new layout */
+}
+
+/* Status Display */
+#rubric-grader-modal .rubric-grader-status {
+  flex: 0 1 auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  min-width: 120px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  align-self: center;
+  line-height: 1.4;
+}
+
+/*
+ * Collapsed toolbar styles are injected via JS (<style id="toolbar-collapsed-styles">)
+ * to guarantee override of Canvas LMS global styles.
+ * See injectCollapsedStyles() in modal.js
+ */
+
+/* Toggle Switch */
+#rubric-grader-modal .toggle-switch-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#rubric-grader-modal .rgm-toggle-label {
+  font-size: 16px;
+  color: #333;
+}
+
+#rubric-grader-modal .toggle-switch-container input[type="checkbox"] {
+  display: none;
+}
+
+#rubric-grader-modal .rgm-toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 24px;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .rgm-toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#rubric-grader-modal .toggle-switch-container input[type="checkbox"]:checked + .rgm-toggle-slider {
+  background: #0374B5;
+}
+
+#rubric-grader-modal .toggle-switch-container input[type="checkbox"]:checked + .rgm-toggle-slider::before {
+  transform: translateX(20px);
+}
+
+#rubric-grader-modal .rubric-grader-body {
+  flex: 1;
+  overflow: hidden;
+  padding: 20px;
+}
+
+#rubric-grader-modal .rubric-grader-loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+#rubric-grader-modal .rubric-grader-table-container {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Grading Table Styles */
+#rubric-grader-modal .grading-table {
+  display: grid;
+  gap: 1px;
+  background: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: max-content;
+}
+
+#rubric-grader-modal .grading-cell {
+  background: white;
+  padding: 10px;
+  min-height: 60px;
+}
+
+#rubric-grader-modal .header-cell {
+  background: #f0f4f8;
+  font-weight: 600;
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+#rubric-grader-modal .corner-cell {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #e8ecf0;
+}
+
+#rubric-grader-modal .student-header {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+#rubric-grader-modal .criteria-cell {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #f8f9fa;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+#rubric-grader-modal .criteria-description {
+  font-size: 13px;
+  color: #333;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .criteria-points {
+  font-size: 11px;
+  color: #666;
+  margin-top: 6px;
+}
+
+/* Student Name Cell with SIS ID */
+#rubric-grader-modal .student-name-cell {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  align-items: start;
+}
+
+#rubric-grader-modal .student-name-cell-actions {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn {
+  grid-column: 2;
+  grid-row: 1;
+  flex-shrink: 0;
+  border: 1px solid #d0d7de;
+  background: #fff;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+#rubric-grader-modal .student-name-cell-content {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn svg,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn svg {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn:hover,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn:hover {
+  background: #f8fafc;
+  border-color: #0374B5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(3, 116, 181, 0.15);
+}
+
+#rubric-grader-modal .student-name-cell > .rgm-student-action-btn:hover svg,
+#rubric-grader-modal .student-name-cell-actions > .rgm-student-action-btn:hover svg {
+  color: #0374B5;
+}
+
+#rubric-grader-modal .student-name-cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+#rubric-grader-modal .student-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0374B5;
+  line-height: 1.3;
+  white-space: pre-wrap;
+  overflow-wrap: normal;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#rubric-grader-modal a.student-name:hover {
+  color: #025a8e;
+  text-decoration: underline;
+}
+
+#rubric-grader-modal .student-name-external-icon {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: middle;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+#rubric-grader-modal a.student-name:hover .student-name-external-icon {
+  opacity: 1;
+}
+
+#rubric-grader-modal .student-sis-id {
+  font-size: 11px;
+  color: #888;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  overflow-wrap: normal;
+}
+
+/* Student Progress Bar */
+#rubric-grader-modal .student-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  width: 100%;
+}
+
+
+
+#rubric-grader-modal .student-progress-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 3px;
+}
+
+#rubric-grader-modal .student-score-text {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .grade-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 120px;
+}
+
+#rubric-grader-modal .grade-cell.modified {
+  background: #fff8e6;
+}
+
+#rubric-grader-modal .grade-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#rubric-grader-modal .rgm-grade-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#rubric-grader-modal .rgm-grade-btn:hover {
+  background: #e0e0e0;
+}
+
+#rubric-grader-modal .rgm-grade-btn.rgm-minus-btn:hover {
+  background: #ffebee;
+  border-color: #ef9a9a;
+}
+
+#rubric-grader-modal .rgm-grade-btn.rgm-plus-btn:hover {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+}
+
+#rubric-grader-modal .grade-input {
+  width: 50px;
+  height: 28px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#rubric-grader-modal .grade-input:focus {
+  outline: none;
+  border-color: #0374B5;
+  box-shadow: 0 0 0 2px rgba(3, 116, 181, 0.2);
+}
+
+#rubric-grader-modal .rgm-comment-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+#rubric-grader-modal .rgm-comment-input:focus {
+  outline: none;
+  border-color: #0374B5;
+}
+
+#rubric-grader-modal .rgm-comment-input::placeholder {
+  color: #aaa;
+}
+
+/* Tabulator Customizations */
+#rubric-grader-modal #rubric-grader-table {
+  height: 100%;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-header {
+  background: #f0f4f8;
+  border-bottom: 2px solid #ddd;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-col {
+  background: #f0f4f8;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-col-title {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-frozen {
+  background: #f8f9fa;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-cell {
+  padding: 8px;
+  vertical-align: top;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-row {
+  min-height: fit-content;
+  height: auto !important;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-cell:not(.tabulator-frozen):not(.tabulator-frozen-left) {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-cell.tabulator-frozen,
+#rubric-grader-modal #rubric-grader-table .tabulator-cell.tabulator-frozen-left {
+  overflow: visible !important;
+}
+
+#rubric-grader-modal #rubric-grader-table .cell-modified {
+  background: #fff8e6 !important;
+}
+
+/* Grade Cell Content in Tabulator */
+#rubric-grader-modal .grade-cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#rubric-grader-modal .grade-cell-content.modified {
+  background: #fff8e6;
+}
+
+#rubric-grader-modal .grade-cell-content .grade-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#rubric-grader-modal .grade-cell-content .grade-value {
+  min-width: 30px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+#rubric-grader-modal .grade-cell-content .grade-max {
+  font-size: 11px;
+  color: #888;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn:hover {
+  background: #e0e0e0;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-minus-btn:hover {
+  background: #ffebee;
+  border-color: #ef9a9a;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-plus-btn:hover {
+  background: #e8f5e9;
+  border-color: #a5d6a7;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 11px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.4;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input:focus {
+  outline: none;
+  border-color: #0374B5;
+}
+
+/* Expand Comment Button (Collapsed State) */
+#rubric-grader-modal .rgm-expand-comment-btn {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  color: #666;
+}
+
+#rubric-grader-modal .rgm-expand-comment-btn:hover {
+  background: #e8f5e9;
+  border-color: #0374B5;
+  color: #333;
+}
+
+/* Existing Comment State - More Prominent */
+#rubric-grader-modal .rgm-expand-comment-btn[data-has-comment="true"] {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border: 1.5px solid #2196F3;
+  font-weight: 600;
+  color: #0d47a1;
+  box-shadow: 0 1px 3px rgba(33, 150, 243, 0.2);
+}
+
+#rubric-grader-modal .rgm-expand-comment-btn[data-has-comment="true"]:hover {
+  background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+  border-color: #1976D2;
+  color: #0d47a1;
+  box-shadow: 0 2px 5px rgba(33, 150, 243, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Comment Wrapper with Collapse Button */
+#rubric-grader-modal .comment-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+#rubric-grader-modal .rgm-collapse-comment-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+#rubric-grader-modal .rgm-collapse-comment-btn:hover {
+  background: #ffebee;
+  border-color: #ef9a9a;
+  color: #333;
+}
+
+/* Expanded cell styling */
+#rubric-grader-modal .cell-expanded {
+  background: #f0f7ff !important;
+}
+
+/* Criterion Detail Modal */
+#rubric-grader-modal .criterion-detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10001;
+}
+
+#rubric-grader-modal .criterion-detail-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .criterion-detail-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .criterion-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .criterion-detail-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  padding-right: 16px;
+  line-height: 1.4;
+}
+
+#rubric-grader-modal .criterion-detail-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .criterion-detail-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .criterion-detail-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#rubric-grader-modal .criterion-detail-section {
+  margin-bottom: 20px;
+}
+
+#rubric-grader-modal .criterion-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+#rubric-grader-modal .criterion-detail-section h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0374B5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#rubric-grader-modal .criterion-detail-section p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+/* Criterion Header with View More Button */
+#rubric-grader-modal .criterion-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+}
+
+#rubric-grader-modal .criterion-header-text {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+
+#rubric-grader-modal .criterion-view-more {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(3, 116, 181, 0.25);
+  border-radius: 4px;
+  background: #ffffff;
+  color: #0374B5;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+#rubric-grader-modal .criterion-view-more:hover {
+  background: rgba(3, 116, 181, 0.08);
+  border-color: rgba(3, 116, 181, 0.4);
+}
+
+#rubric-grader-modal .criterion-view-more:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(3, 116, 181, 0.2);
+}
+
+#rubric-grader-modal .criterion-view-more svg {
+  display: block;
+}
+
+/* Save Confirmation Modal */
+#rubric-grader-modal .save-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10001;
+}
+
+#rubric-grader-modal .save-confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .save-confirmation-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 700px;
+  max-height: 80%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .save-confirmation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .save-confirmation-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+#rubric-grader-modal .save-confirmation-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .save-confirmation-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .save-confirmation-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Set All Scores Modal */
+#rubric-grader-modal .set-all-scores-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-modal-confirm);
+}
+
+#rubric-grader-modal .set-all-scores-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .set-all-scores-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 560px;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .set-all-scores-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+#rubric-grader-modal .set-all-scores-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+#rubric-grader-modal .set-all-scores-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .set-all-scores-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .set-all-scores-body {
+  padding: var(--space-5);
+}
+
+#rubric-grader-modal .set-all-scores-message {
+  margin: 0 0 16px 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+#rubric-grader-modal .set-all-scores-options {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#rubric-grader-modal .set-all-scores-option {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #d0d7de;
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#rubric-grader-modal .set-all-scores-option:hover {
+  border-color: #0374B5;
+  box-shadow: 0 2px 8px rgba(3, 116, 181, 0.12);
+  transform: translateY(-1px);
+}
+
+#rubric-grader-modal .set-all-scores-option.selected {
+  border-color: #0374B5;
+  background: #f4f9fc;
+  box-shadow: 0 0 0 2px rgba(3, 116, 181, 0.12);
+}
+
+#rubric-grader-modal .set-all-scores-option-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+#rubric-grader-modal .set-all-scores-option-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+#rubric-grader-modal .set-all-scores-warning {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border: 1px solid #ffa726;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+#rubric-grader-modal .set-all-scores-warning strong {
+  display: block;
+  color: #f57c00;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+#rubric-grader-modal .set-all-scores-warning p {
+  margin: 0;
+  font-size: 14px;
+  color: #e65100;
+  line-height: 1.5;
+}
+
+#rubric-grader-modal .set-all-scores-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-primary,
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: #fff;
+  border: none;
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-primary:hover:not(:disabled) {
+  background: #025a8e;
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-secondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-secondary:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-primary:disabled,
+#rubric-grader-modal .set-all-scores-footer .rgm-btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#rubric-grader-modal .autosave-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-modal-confirm);
+}
+
+#rubric-grader-modal .autosave-confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .autosave-confirmation-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 700px;
+  max-height: 80%;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .autosave-confirmation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+#rubric-grader-modal .autosave-confirmation-title {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+#rubric-grader-modal .autosave-confirmation-body {
+  padding: var(--space-5);
+  overflow-y: auto;
+  flex: 1;
+  background: var(--color-bg-primary);
+}
+
+#rubric-grader-modal .autosave-confirmation-message {
+  margin: 0 0 12px 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-medium);
+}
+
+#rubric-grader-modal .autosave-confirmation-submessage {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  background: var(--color-warning-light);
+  border: 1px solid var(--color-warning-lighter);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+#rubric-grader-modal .autosave-toast {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+#rubric-grader-modal .autosave-toast + .autosave-toast {
+  margin-top: 10px;
+}
+
+#rubric-grader-modal .autosave-toast-title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+#rubric-grader-modal .autosave-toast-text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+#rubric-grader-modal .autosave-toast-warning {
+  background: var(--color-warning-light);
+  border-color: var(--color-warning-lighter);
+  color: var(--color-warning-dark);
+}
+
+#rubric-grader-modal .autosave-toast-success {
+  background: var(--color-success-light);
+  border-color: var(--color-success-lighter);
+  color: var(--color-success-dark);
+}
+
+#rubric-grader-modal .autosave-confirmation-summary {
+  margin-top: 16px;
+}
+
+#rubric-grader-modal .autosave-confirmation-changes {
+  margin-top: 12px;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-primary,
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: #fff;
+  border: none;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-primary:hover {
+  background: #025a8e;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-secondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-primary:disabled,
+#rubric-grader-modal .autosave-confirmation-footer .rgm-btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Summary Statistics */
+#rubric-grader-modal .save-summary-stats {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+#rubric-grader-modal .save-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#rubric-grader-modal .save-stat-number {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0374B5;
+  line-height: 1;
+}
+
+#rubric-grader-modal .save-stat-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Changes List */
+#rubric-grader-modal .save-changes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#rubric-grader-modal .save-student-group {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .save-student-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #f0f4f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#rubric-grader-modal .save-student-icon {
+  font-size: 18px;
+}
+
+#rubric-grader-modal .save-student-name {
+  flex: 1;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+#rubric-grader-modal .save-student-count {
+  font-size: 12px;
+  color: #666;
+  background: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn {
+  border: 1px solid #d0d7de;
+  background: #fff;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn svg {
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn:hover {
+  background: #f8fafc;
+  border-color: #0374B5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(3, 116, 181, 0.15);
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn:hover svg {
+  color: #0374B5;
+}
+
+#rubric-grader-modal .save-student-header .rgm-student-action-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#rubric-grader-modal .save-student-changes {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#rubric-grader-modal .save-change-item {
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 4px;
+  border-left: 3px solid #0374B5;
+}
+
+#rubric-grader-modal .save-criterion-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+#rubric-grader-modal .save-change-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#rubric-grader-modal .save-change-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+}
+
+#rubric-grader-modal .save-change-label {
+  font-weight: 500;
+  color: #666;
+  min-width: 70px;
+}
+
+#rubric-grader-modal .save-change-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+#rubric-grader-modal .save-old-value {
+  color: #d32f2f;
+  text-decoration: line-through;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .save-new-value {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+#rubric-grader-modal .save-arrow {
+  color: #999;
+  font-size: 14px;
+}
+
+#rubric-grader-modal .save-max-points {
+  color: #999;
+  font-size: 11px;
+}
+
+#rubric-grader-modal .save-comment-change {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.save-comment-old,
+#rubric-grader-modal .save-comment-new {
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+#rubric-grader-modal .save-comment-old {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+#rubric-grader-modal .save-comment-new {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+/* Comment box wrapper and expand button */
+#rubric-grader-modal .save-comment-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+#rubric-grader-modal .save-comment-expand {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: #0374B5;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 2px 4px;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+#rubric-grader-modal .save-comment-expand:hover {
+  color: #025a8e;
+}
+
+#rubric-grader-modal .save-comment-old.expanded,
+#rubric-grader-modal .save-comment-new.expanded {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Footer */
+#rubric-grader-modal .save-confirmation-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+.save-confirmation-footer .rgm-btn-primary,
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: white;
+  border: none;
+}
+
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-primary:hover {
+  background: #025a8e;
+}
+
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-secondary {
+  background: white;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+/* Save Progress Bar */
+#rubric-grader-modal .save-progress-bar-container {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+#rubric-grader-modal .save-progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+#rubric-grader-modal .save-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0374B5, #4CAF50);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+#rubric-grader-modal .save-progress-text {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+}
+
+/* Save Student Status States */
+#rubric-grader-modal .save-student-group.saving .save-student-header {
+  background: #fff8e6;
+  border-color: #ffc107;
+}
+
+#rubric-grader-modal .save-student-group.success .save-student-header {
+  background: #e8f5e9;
+  border-color: #4CAF50;
+}
+
+#rubric-grader-modal .save-student-group.error .save-student-header {
+  background: #ffebee;
+  border-color: #f44336;
+}
+
+#rubric-grader-modal .save-student-status-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .save-student-status {
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+#rubric-grader-modal .save-student-status.saving {
+  color: #f57c00;
+  background: #fff3e0;
+}
+
+#rubric-grader-modal .save-student-status.success {
+  color: #2e7d32;
+  background: #c8e6c9;
+}
+
+#rubric-grader-modal .save-student-status.error {
+  color: #c62828;
+  background: #ffcdd2;
+}
+
+/* SpeedGrader Link */
+#rubric-grader-modal .save-speedgrader-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  margin-left: 8px;
+  background: #0374B5;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .save-speedgrader-link:hover {
+  background: #025a8e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#rubric-grader-modal .save-speedgrader-link svg {
+  flex-shrink: 0;
+}
+
+/* Overall Result */
+#rubric-grader-modal .save-overall-result {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#rubric-grader-modal .save-result-success,
+#rubric-grader-modal .save-result-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+#rubric-grader-modal .save-result-success {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #4CAF50;
+}
+
+#rubric-grader-modal .save-result-error {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  border: 1px solid #f44336;
+}
+
+#rubric-grader-modal .save-result-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .save-result-text {
+  flex: 1;
+}
+
+#rubric-grader-modal .save-result-text strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+#rubric-grader-modal .save-result-success .save-result-text strong {
+  color: #2e7d32;
+}
+
+#rubric-grader-modal .save-result-error .save-result-text strong {
+  color: #c62828;
+}
+
+#rubric-grader-modal .save-result-text p {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Disabled button state */
+#rubric-grader-modal .save-confirmation-footer .rgm-btn-secondary:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #ccc;
+}
+
+/* Responsive Breakpoints for Toolbar */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  #rubric-grader-modal .rubric-grader-toolbar {
+    gap: var(--space-4);
+  }
+
+  #rubric-grader-modal .toolbar-group-filters {
+    min-width: 300px;
+  }
+
+  #rubric-grader-modal .toolbar-divider {
+    display: none;
+  }
+}
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+  #rubric-grader-modal .rubric-grader-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+    padding: var(--space-3);
+  }
+
+  #rubric-grader-modal .toolbar-group {
+    width: 100%;
+  }
+
+  #rubric-grader-modal .toolbar-group-filters {
+    min-width: 100%;
+  }
+
+  #rubric-grader-modal .rubric-grader-search {
+    width: 100%;
+  }
+
+  #rubric-grader-modal .toolbar-divider {
+    display: none;
+  }
+}
+
+/* Touch-Friendly Enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase button sizes for touch devices */
+  .grade-cell-content .rgm-grade-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .rubric-grader-actions .rgm-btn-primary,
+  #rubric-grader-modal .rubric-grader-actions .rgm-btn-secondary {
+    padding: 12px 20px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  .rubric-grader-close,
+  #rubric-grader-modal .criterion-detail-close {
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  #rubric-grader-modal .criterion-view-more {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  /* Larger input fields */
+  #rubric-grader-modal .grade-cell-content .rgm-comment-input {
+    padding: 8px 10px;
+    font-size: 14px;
+    min-height: 100px;
+  }
+
+  #rubric-grader-modal .rubric-grader-search input {
+    padding: 12px 16px;
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  /* Increase table cell padding */
+  #rubric-grader-modal #rubric-grader-table .tabulator-cell {
+    padding: 12px;
+  }
+}
+
+/* Section Filter Styles */
+#rubric-grader-modal .section-filter-container {
+  position: relative;
+}
+
+#rubric-grader-modal .rgm-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .rgm-filter-btn:hover {
+  border-color: #0374B5;
+  background: #e8f5f9;
+}
+
+#rubric-grader-modal .rgm-filter-btn svg {
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .rgm-filter-btn-text {
+  font-weight: 500;
+}
+
+#rubric-grader-modal .rgm-filter-chevron {
+  margin-left: 2px;
+  opacity: 0.6;
+}
+
+#rubric-grader-modal .rgm-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #0374B5;
+  color: white;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+#rubric-grader-modal .section-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 280px;
+  max-width: 350px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .section-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+
+#rubric-grader-modal .section-select-all {
+  background: none;
+  border: none;
+  color: #0374B5;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+#rubric-grader-modal .section-select-all:hover {
+  background: rgba(3, 116, 181, 0.1);
+}
+
+#rubric-grader-modal .section-dropdown-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+#rubric-grader-modal .rgm-section-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+  color: #333;
+}
+
+#rubric-grader-modal .rgm-section-item:hover {
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .rgm-section-item input[type="checkbox"] {
+  display: none;
+}
+
+#rubric-grader-modal .rgm-section-checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .rgm-section-item input[type="checkbox"]:checked + .rgm-section-checkmark {
+  background: #0374B5;
+  border-color: #0374B5;
+}
+
+#rubric-grader-modal .rgm-section-item input[type="checkbox"]:checked + .rgm-section-checkmark::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+#rubric-grader-modal .rgm-section-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rubric-grader-modal .rgm-section-item-empty {
+  padding: 20px 16px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Section search input */
+#rubric-grader-modal .section-dropdown-search {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#rubric-grader-modal .section-search-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #333;
+  background: #fafafa;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#rubric-grader-modal .section-search-input:focus {
+  border-color: #0374B5;
+  background: #fff;
+}
+
+#rubric-grader-modal .section-search-input::placeholder {
+  color: #aaa;
+}
+
+/* Load Data button wrapper + tooltip */
+#rubric-grader-modal .load-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+#rubric-grader-modal .load-btn-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 200;
+}
+
+#rubric-grader-modal .load-btn-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+#rubric-grader-modal .load-btn-wrapper:hover .load-btn-tooltip {
+  display: block;
+}
+
+/* Load Data Button in Filters */
+#rubric-grader-modal .rubric-grader-filters .rgm-btn-primary {
+  padding: 6px 14px;
+  background: #0374B5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(3, 116, 181, 0.3);
+}
+
+#rubric-grader-modal .rubric-grader-filters .rgm-btn-primary:hover {
+  background: #025a8e;
+  box-shadow: 0 2px 5px rgba(3, 116, 181, 0.4);
+  transform: translateY(-1px);
+}
+
+#rubric-grader-modal .rubric-grader-filters .rgm-btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Action Buttons */
+.rubric-grader-actions .rgm-btn-primary,
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-secondary {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  min-width: 60px;
+}
+
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-primary {
+  background: #0374B5;
+  color: white;
+  box-shadow: 0 1px 3px rgba(3, 116, 181, 0.3);
+}
+
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-primary:hover:not(:disabled) {
+  background: #025a8e;
+  box-shadow: 0 2px 5px rgba(3, 116, 181, 0.4);
+  transform: translateY(-1px);
+}
+
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-secondary {
+  background: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  min-width: 36px;
+  padding: 6px 10px;
+}
+
+#rubric-grader-modal .rubric-grader-actions .rgm-btn-secondary:hover {
+  background: #e8f5f9;
+  border-color: #0374B5;
+  transform: translateY(-1px);
+}
+
+/* Toggle Switch Compact */
+#rubric-grader-modal .toggle-switch-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#rubric-grader-modal .rgm-toggle-label {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Settings Modal */
+#rubric-grader-modal .settings-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10002;
+}
+
+#rubric-grader-modal .settings-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .settings-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+#rubric-grader-modal .settings-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+#rubric-grader-modal .settings-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .settings-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .settings-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#rubric-grader-modal .settings-section {
+  margin-bottom: 28px;
+}
+
+#rubric-grader-modal .settings-section:last-child {
+  margin-bottom: 0;
+}
+
+#rubric-grader-modal .settings-section-title {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0374B5;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+/* Storage Usage */
+#rubric-grader-modal .storage-info {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+#rubric-grader-modal .storage-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#rubric-grader-modal .storage-bar {
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#rubric-grader-modal .storage-bar-fill {
+  height: 100%;
+  background: #4CAF50;
+  border-radius: 6px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+#rubric-grader-modal .storage-text {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Saved Courses List */
+#rubric-grader-modal .settings-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#rubric-grader-modal .settings-loading,
+#rubric-grader-modal .settings-empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: #999;
+  font-style: italic;
+  font-size: 14px;
+}
+
+#rubric-grader-modal .settings-course-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .settings-course-item:hover {
+  background: #f8f9fa;
+  border-color: #0374B5;
+  box-shadow: 0 2px 6px rgba(3, 116, 181, 0.08);
+  transform: translateY(-1px);
+}
+
+#rubric-grader-modal .settings-course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+#rubric-grader-modal .settings-course-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+#rubric-grader-modal .settings-course-subtitle {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+#rubric-grader-modal .settings-course-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#rubric-grader-modal .settings-course-detail {
+  font-size: 11px;
+  color: #666;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+}
+
+#rubric-grader-modal .settings-course-detail svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+#rubric-grader-modal .settings-course-reset {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+#rubric-grader-modal .settings-course-reset svg {
+  color: #999;
+  transition: color 0.2s;
+}
+
+#rubric-grader-modal .settings-course-reset:hover {
+  background: #ffebee;
+  border-color: #f44336;
+  transform: scale(1.05);
+}
+
+#rubric-grader-modal .settings-course-reset:hover svg {
+  color: #f44336;
+}
+
+/* Settings Footer */
+#rubric-grader-modal .settings-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .settings-footer .rgm-btn-primary,
+#rubric-grader-modal .settings-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .settings-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: white;
+  border: none;
+}
+
+#rubric-grader-modal .settings-footer .rgm-btn-primary:hover {
+  background: #025a8e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(3, 116, 181, 0.3);
+}
+
+#rubric-grader-modal .settings-footer .rgm-btn-secondary {
+  background: white;
+  color: #d32f2f;
+  border: 1px solid #d32f2f;
+}
+
+#rubric-grader-modal .settings-footer .rgm-btn-secondary:hover {
+  background: #ffebee;
+  border-color: #c62828;
+}
+
+/* Settings and Help buttons in toolbar */
+#rubric-grader-modal #rubric-grader-settings,
+#rubric-grader-modal #rubric-grader-help {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+#rubric-grader-modal #rubric-grader-settings svg,
+#rubric-grader-modal #rubric-grader-help svg {
+  width: 22px;
+  height: 22px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+#rubric-grader-modal #rubric-grader-settings:hover,
+#rubric-grader-modal #rubric-grader-help:hover {
+  background: #f8fafc;
+  border-color: #0374B5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(3, 116, 181, 0.15);
+}
+
+#rubric-grader-modal #rubric-grader-settings:hover svg,
+#rubric-grader-modal #rubric-grader-help:hover svg {
+  color: #0374B5;
+}
+
+#rubric-grader-modal #rubric-grader-settings:hover svg {
+  transform: rotate(45deg);
+}
+
+#rubric-grader-modal #rubric-grader-settings:active,
+#rubric-grader-modal #rubric-grader-help:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Export/Import Section */
+#rubric-grader-modal .settings-export-import {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#rubric-grader-modal .settings-action-btn {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: white;
+  color: #0374B5;
+  border: 2px solid #0374B5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .settings-action-btn:hover {
+  background: #e8f5f9;
+  border-color: #025a8e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(3, 116, 181, 0.2);
+}
+
+#rubric-grader-modal .settings-action-btn svg {
+  flex-shrink: 0;
+}
+
+/* Settings Message (Inline) */
+#rubric-grader-modal .settings-message {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#rubric-grader-modal .settings-message-success {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #4CAF50;
+  color: #2e7d32;
+}
+
+#rubric-grader-modal .settings-message-error {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  border: 1px solid #f44336;
+  color: #c62828;
+}
+
+#rubric-grader-modal .settings-message strong {
+  font-weight: 600;
+}
+
+/* Help Modal */
+#rubric-grader-modal .help-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10002;
+}
+
+#rubric-grader-modal .help-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .help-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  height: 80vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  resize: both;
+  min-width: 600px;
+  min-height: 400px;
+}
+
+#rubric-grader-modal .help-content::-webkit-resizer {
+  background: var(--color-primary);
+  border-radius: 0 0 12px 0;
+}
+
+#rubric-grader-modal .help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+#rubric-grader-modal .help-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+#rubric-grader-modal .help-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .help-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .help-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Import Confirmation Modal */
+#rubric-grader-modal .import-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10003;
+}
+
+#rubric-grader-modal .import-confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .import-confirmation-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 550px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#rubric-grader-modal .import-confirmation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+#rubric-grader-modal .import-confirmation-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+#rubric-grader-modal .import-confirmation-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+#rubric-grader-modal .import-confirmation-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#rubric-grader-modal .import-confirmation-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Import File Info */
+#rubric-grader-modal .import-file-info {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+#rubric-grader-modal .import-info-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+#rubric-grader-modal .import-info-row:last-child {
+  margin-bottom: 0;
+}
+
+#rubric-grader-modal .import-info-label {
+  font-weight: 600;
+  color: #666;
+  min-width: 90px;
+  font-size: 14px;
+}
+
+#rubric-grader-modal .import-info-value {
+  color: #333;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+/* Import Summary */
+#rubric-grader-modal .import-summary {
+  margin-bottom: 20px;
+}
+
+#rubric-grader-modal .import-summary h4 {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+#rubric-grader-modal .import-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+#rubric-grader-modal .import-summary-list li {
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-left: 3px solid #0374B5;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+#rubric-grader-modal .import-count {
+  font-weight: 700;
+  color: #0374B5;
+  font-size: 16px;
+}
+
+#rubric-grader-modal .import-note {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Import Warning */
+#rubric-grader-modal .import-warning {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border: 1px solid #ffa726;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+#rubric-grader-modal .import-warning strong {
+  display: block;
+  color: #f57c00;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+#rubric-grader-modal .import-warning p {
+  margin: 0;
+  font-size: 14px;
+  color: #e65100;
+  line-height: 1.5;
+}
+
+/* Import Result */
+#rubric-grader-modal .import-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+#rubric-grader-modal .import-result-success {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 1px solid #4CAF50;
+}
+
+#rubric-grader-modal .import-result-error {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  border: 1px solid #f44336;
+}
+
+#rubric-grader-modal .import-result-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+#rubric-grader-modal .import-result-text {
+  flex: 1;
+}
+
+#rubric-grader-modal .import-result-text strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+#rubric-grader-modal .import-result-success .import-result-text strong {
+  color: #2e7d32;
+}
+
+#rubric-grader-modal .import-result-error .import-result-text strong {
+  color: #c62828;
+}
+
+#rubric-grader-modal .import-result-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* Import Confirmation Footer */
+#rubric-grader-modal .import-confirmation-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-primary,
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: white;
+  border: none;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-primary:hover:not(:disabled) {
+  background: #025a8e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(3, 116, 181, 0.3);
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-secondary {
+  background: white;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-secondary:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+#rubric-grader-modal .import-confirmation-footer .rgm-btn-secondary:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Close Confirmation Modal */
+#rubric-grader-modal .close-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10004;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#rubric-grader-modal .close-confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .close-confirmation-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#rubric-grader-modal .close-confirmation-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-bottom: 1px solid #ffc107;
+}
+
+#rubric-grader-modal .close-confirmation-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  line-height: 1;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+#rubric-grader-modal .close-confirmation-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f57c00;
+  text-align: center;
+}
+
+#rubric-grader-modal .close-confirmation-body {
+  padding: 24px;
+  text-align: center;
+}
+
+#rubric-grader-modal .close-confirmation-message {
+  font-size: 15px;
+  color: #333;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+#rubric-grader-modal .close-confirmation-message strong {
+  color: #f57c00;
+  font-weight: 600;
+}
+
+#rubric-grader-modal .close-confirmation-hint {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+#rubric-grader-modal .close-confirmation-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  background: #f5f5f5;
+  flex-wrap: wrap;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-primary,
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  flex: 0 1 auto;
+  min-width: 120px;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-primary {
+  background: #0374B5;
+  color: white;
+  border: none;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-primary:hover {
+  background: #025a8e;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(3, 116, 181, 0.3);
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-secondary {
+  background: white;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-secondary:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-secondary:first-child {
+  color: #d32f2f;
+  border-color: #d32f2f;
+}
+
+#rubric-grader-modal .close-confirmation-footer .rgm-btn-secondary:first-child:hover {
+  background: #ffebee;
+  border-color: #c62828;
+}
+
+/* Close Save Success Feedback */
+#rubric-grader-modal .close-save-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #e8f5e9;
+  border-radius: 6px;
+  width: 100%;
+}
+
+#rubric-grader-modal .close-save-icon {
+  font-size: 20px;
+}
+
+#rubric-grader-modal .close-save-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2e7d32;
+}
+
+/* Reset Confirmation Modals (Clear All & Course Reset) */
+#rubric-grader-modal .reset-confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10003;
+}
+
+#rubric-grader-modal .reset-confirmation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#rubric-grader-modal .reset-confirmation-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+#rubric-grader-modal .reset-confirmation-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  border-bottom: 1px solid #ffcdd2;
+}
+
+#rubric-grader-modal .reset-confirmation-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+#rubric-grader-modal .reset-confirmation-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #d32f2f;
+  text-align: center;
+}
+
+#rubric-grader-modal .reset-confirmation-body {
+  padding: 24px;
+}
+
+#rubric-grader-modal .reset-course-info {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+#rubric-grader-modal .reset-course-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+#rubric-grader-modal .reset-course-subtitle {
+  font-size: 13px;
+  color: #666;
+}
+
+#rubric-grader-modal .reset-warning-text {
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+#rubric-grader-modal .reset-warning-list {
+  margin: 0 0 16px 0;
+  padding-left: 24px;
+  list-style: disc;
+}
+
+#rubric-grader-modal .reset-warning-list li {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+#rubric-grader-modal .reset-danger-text {
+  font-size: 14px;
+  color: #d32f2f;
+  font-weight: 600;
+  margin: 16px 0 0 0;
+  padding: 12px;
+  background: #ffebee;
+  border-radius: 6px;
+  border-left: 4px solid #d32f2f;
+}
+
+#rubric-grader-modal .reset-confirmation-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+  background: #f5f5f5;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-danger,
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-danger {
+  background: #d32f2f;
+  color: white;
+  border: none;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-danger:hover:not(:disabled) {
+  background: #c62828;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-danger:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-secondary {
+  background: white;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-secondary:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+#rubric-grader-modal .reset-confirmation-footer .rgm-btn-secondary:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+
