@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Build artifacts / packaged extension
+*.zip
+*.crx
+
+# AI assistant
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node / npm (if ever used)
+node_modules/
+npm-debug.log*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
