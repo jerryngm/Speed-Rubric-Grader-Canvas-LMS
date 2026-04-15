@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promo Tile Designs - Speed Rubric Grader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #0f172a;
+      padding: 40px;
+      color: white;
+    }
+    h2 { margin: 40px 0 20px; font-size: 24px; color: #94a3b8; }
+    h3 { margin: 30px 0 15px; font-size: 18px; color: #64748b; }
+    .designs { display: flex; flex-wrap: wrap; gap: 30px; }
+
+    /* ========== DESIGN 1: Gradient with UI Preview (Based on your liked design) ========== */
+    .tile-1 {
+      width: 440px;
+      height: 280px;
+      background: linear-gradient(135deg, #0d9488 0%, #2563eb 100%);
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+    }
+    .tile-1::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 35px 35px;
+    }
+    .tile-1 .content {
+      position: relative;
+      z-index: 1;
+      padding: 28px 32px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .tile-1 .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+    .tile-1 .badge .canvas-icon {
+      width: 16px;
+      height: 16px;
+      background: #e74c3c;
+      border-radius: 50%;
+      position: relative;
+    }
+    .tile-1 .badge .canvas-icon::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px; height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+    .tile-1 .title {
+      font-size: 34px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    .tile-1 .subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      max-width: 240px;
+    }
+    .tile-1 .ui-preview {
+      position: absolute;
+      bottom: -15px;
+      right: -20px;
+      width: 200px;
+      height: 150px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+      transform: perspective(800px) rotateY(-10deg) rotateX(5deg);
+      overflow: hidden;
+    }
+    .tile-1 .ui-header {
+      background: linear-gradient(90deg, #0d9488, #2563eb);
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tile-1 .ui-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .tile-1 .ui-grid { padding: 8px; }
+    .tile-1 .ui-row { display: flex; gap: 4px; margin-bottom: 4px; }
+    .tile-1 .ui-cell { height: 16px; border-radius: 3px; flex: 1; }
+    .tile-1 .ui-cell.header { background: #e2e8f0; }
+    .tile-1 .ui-cell.name { background: #f1f5f9; flex: 1.5; }
+    .tile-1 .ui-cell.green { background: #22c55e; }
+    .tile-1 .ui-cell.yellow { background: #eab308; }
+    .tile-1 .ui-cell.red { background: #ef4444; }
+    .tile-1 .lightning {
+      position: absolute;
+      top: 20px;
+      right: 180px;
+      font-size: 40px;
+      filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+    }
+
+    /* ========== DESIGN 2: Dark Modern with Floating Cards ========== */
+    .tile-2 {
+      width: 440px;
+      height: 280px;
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .tile-2::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.3) 0%, transparent 70%);
+    }
+    .tile-2::after {
+      content: '';
+      position: absolute;
+      bottom: -50px; left: -50px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, transparent 70%);
+    }
+    .tile-2 .content {
+      position: relative;
+      z-index: 1;
+      padding: 30px 32px;
+      height: 100%;
+    }
+    .tile-2 .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .tile-2 .app-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #0d9488, #2563eb);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+    }
+    .tile-2 .app-icon svg { width: 26px; height: 26px; }
+    .tile-2 .title {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .tile-2 .title span {
+      background: linear-gradient(90deg, #14b8a6, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .tile-2 .subtitle {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+      max-width: 220px;
+    }
+    .tile-2 .floating-cards {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tile-2 .card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tile-2 .card:nth-child(1) { transform: translateX(10px); }
+    .tile-2 .card:nth-child(3) { transform: translateX(10px); }
+    .tile-2 .card .score {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+    }
+    .tile-2 .card .score.green { background: #22c55e; }
+    .tile-2 .card .score.yellow { background: #eab308; }
+    .tile-2 .card .score.red { background: #ef4444; }
+    .tile-2 .card .name {
+      width: 60px;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+    }
+
+    /* ========== DESIGN 3: Clean White with Accent ========== */
+    .tile-3 {
+      width: 440px;
+      height: 280px;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    .tile-3 .accent-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #0d9488, #2563eb);
+    }
+    .tile-3 .content {
+      padding: 35px 32px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .tile-3 .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #dc2626;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+    .tile-3 .title {
+      font-size: 30px;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .tile-3 .title span {
+      color: #0d9488;
+    }
+    .tile-3 .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+      max-width: 230px;
+    }
+    .tile-3 .grid-visual {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 36px);
+      gap: 6px;
+    }
+    .tile-3 .grid-cell {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+    }
+    .tile-3 .grid-cell.header {
+      background: #e2e8f0;
+      color: #64748b;
+      font-size: 10px;
+    }
+    .tile-3 .grid-cell.green { background: #22c55e; }
+    .tile-3 .grid-cell.yellow { background: #eab308; }
+    .tile-3 .grid-cell.red { background: #ef4444; }
+    .tile-3 .grid-cell.blue { background: #3b82f6; }
+    .tile-3 .lightning-badge {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+    }
+
+    /* ========== DESIGN 4: Bold Gradient with Stats ========== */
+    .tile-4 {
+      width: 440px;
+      height: 280px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0d9488 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .tile-4::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .tile-4 .content {
+      position: relative;
+      z-index: 1;
+      padding: 28px 32px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .tile-4 .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .tile-4 .canvas-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .tile-4 .canvas-dot {
+      width: 20px;
+      height: 20px;
+      background: #e74c3c;
+      border-radius: 50%;
+    }
+    .tile-4 .title {
+      font-size: 36px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 6px;
+    }
+    .tile-4 .subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: auto;
+      max-width: 230px
+    }
+    .tile-4 .stats-row {
+      display: flex;
+      gap: 20px;
+    }
+    .tile-4 .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tile-4 .stat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .tile-4 .stat-icon.green { background: rgba(34, 197, 94, 0.2); }
+    .tile-4 .stat-icon.yellow { background: rgba(234, 179, 8, 0.2); }
+    .tile-4 .stat-icon.blue { background: rgba(59, 130, 246, 0.2); }
+    .tile-4 .stat-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.3;
+    }
+    .tile-4 .stat-text strong {
+      display: block;
+      font-size: 16px;
+      color: white;
+    }
+    .tile-4 .ui-float {
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%) perspective(500px) rotateY(-15deg);
+      width: 160px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: -20px 20px 60px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+    .tile-4 .ui-float-header {
+      background: linear-gradient(90deg, #0d9488, #2563eb);
+      height: 24px;
+    }
+    .tile-4 .ui-float-body {
+      padding: 8px;
+    }
+    .tile-4 .ui-float-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .tile-4 .ui-float-cell {
+      height: 14px;
+      border-radius: 3px;
+      flex: 1;
+    }
+    .tile-4 .ui-float-cell.h { background: #e2e8f0; }
+    .tile-4 .ui-float-cell.g { background: #22c55e; }
+    .tile-4 .ui-float-cell.y { background: #eab308; }
+    .tile-4 .ui-float-cell.r { background: #ef4444; }
+  </style>
+</head>
+<body>
+  <h1>Speed Rubric Grader - Promo Tile Designs</h1>
+
+  <h2>Small Promo Tiles (440 x 280)</h2>
+
+  <h3>Design 1: Teal-Blue Gradient with UI Preview (Based on your liked design)</h3>
+  <div class="designs">
+    <div class="tile-1">
+      <div class="content">
+        <div class="badge">
+          <div class="canvas-icon"></div>
+          Canvas LMS
+        </div>
+        <h1 class="title">Speed Rubric<br>Grader</h1>
+        <p class="subtitle">Grade all students at once in a powerful spreadsheet view</p>
+      </div>
+      <span class="lightning">⚡</span>
+      <div class="ui-preview">
+        <div class="ui-header">
+          <div class="ui-dot"></div>
+          <div class="ui-dot"></div>
+          <div class="ui-dot"></div>
+        </div>
+        <div class="ui-grid">
+          <div class="ui-row">
+            <div class="ui-cell header name"></div>
+            <div class="ui-cell header"></div>
+            <div class="ui-cell header"></div>
+            <div class="ui-cell header"></div>
+          </div>
+          <div class="ui-row">
+            <div class="ui-cell name"></div>
+            <div class="ui-cell green"></div>
+            <div class="ui-cell green"></div>
+            <div class="ui-cell yellow"></div>
+          </div>
+          <div class="ui-row">
+            <div class="ui-cell name"></div>
+            <div class="ui-cell yellow"></div>
+            <div class="ui-cell green"></div>
+            <div class="ui-cell green"></div>
+          </div>
+          <div class="ui-row">
+            <div class="ui-cell name"></div>
+            <div class="ui-cell green"></div>
+            <div class="ui-cell red"></div>
+            <div class="ui-cell green"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Design 2: Dark Modern with Floating Score Cards</h3>
+  <div class="designs">
+    <div class="tile-2">
+      <div class="content">
+        <div class="logo-row">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 3v18"/>
+            </svg>
+          </div>
+        </div>
+        <h1 class="title"><span>Speed</span> Rubric<br>Grader</h1>
+        <p class="subtitle">Bulk grade rubrics in a spreadsheet-style interface</p>
+      </div>
+      <div class="floating-cards">
+        <div class="card">
+          <div class="score green">A</div>
+          <div class="name"></div>
+        </div>
+        <div class="card">
+          <div class="score yellow">B</div>
+          <div class="name"></div>
+        </div>
+        <div class="card">
+          <div class="score red">C</div>
+          <div class="name"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Design 3: Clean White with Grid Visual</h3>
+
+  <div class="tile-3 badge">
+          <span>●</span> For Canvas LMS
+  </div>
+
+  <div class="designs">
+    <div class="tile-3">
+   
+      <div class="content">
+        <div class="badge">
+          <span>●</span> For Canvas LMS
+        </div>
+        <h1 class="title"><span>Speed</span> Rubric<br>Grader</h1>
+        <p class="subtitle">Grade all students at once with a powerful spreadsheet view</p>
+      </div>
+      <div class="lightning-badge">⚡</div>
+      <div class="grid-visual">
+        <div class="grid-cell header">C1</div>
+        <div class="grid-cell header">C2</div>
+        <div class="grid-cell header">C3</div>
+        <div class="grid-cell header">C4</div>
+        <div class="grid-cell green">5</div>
+        <div class="grid-cell green">4</div>
+        <div class="grid-cell yellow">3</div>
+        <div class="grid-cell green">5</div>
+        <div class="grid-cell yellow">3</div>
+        <div class="grid-cell green">5</div>
+        <div class="grid-cell green">4</div>
+        <div class="grid-cell red">1</div>
+        <div class="grid-cell green">4</div>
+        <div class="grid-cell red">2</div>
+        <div class="grid-cell green">5</div>
+        <div class="grid-cell blue">4</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Design 4: Bold Gradient with Feature Stats</h3>
+  <div class="designs">
+    <div class="tile-4">
+      <div class="content">
+        <div class="top-row">
+ <div class="badge" style="display:inline-flex;align-items:center;gap:6px;background:#fef2f2;border:1px solid #fecaca;padding:5px 12px;border-radius:16px;font-size:11px;font-weight:600;color:#dc2626;width:fit-content;margin-bottom:14px;">
+  ● For Canvas LMS
+</div>
+          
+        </div>
+        <h1 class="title"><span style="color: #0d9488;">Speed </span>Rubric<br>Grader</h1>
+        <p class="subtitle">Grade all students at once with a spreadsheet view.</p>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-icon green">✓</div>
+            <div class="stat-text"><strong>10x</strong>Faster</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon yellow">📊</div>
+            <div class="stat-text"><strong>All</strong>Students</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon blue">💬</div>
+            <div class="stat-text"><strong>AI</strong>Comments</div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-float">
+        <div class="ui-float-header"></div>
+        <div class="ui-float-body">
+          <div class="ui-float-row">
+            <div class="ui-float-cell h"></div>
+            <div class="ui-float-cell h"></div>
+            <div class="ui-float-cell h"></div>
+          </div>
+          <div class="ui-float-row">
+            <div class="ui-float-cell h"></div>
+            <div class="ui-float-cell g"></div>
+            <div class="ui-float-cell y"></div>
+          </div>
+          <div class="ui-float-row">
+            <div class="ui-float-cell h"></div>
+            <div class="ui-float-cell g"></div>
+            <div class="ui-float-cell g"></div>
+          </div>
+          <div class="ui-float-row">
+            <div class="ui-float-cell h"></div>
+            <div class="ui-float-cell r"></div>
+            <div class="ui-float-cell g"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "Speed Rubric Grader (Canvas LMS)",
+  "version": "2.0.0",
+  "description": "Streamline rubric grading in Canvas LMS - grade multiple students at once",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.instructure.com/*",
+    "https://*.beta.instructure.com/*",
+    "https://*.canvas.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.instructure.com/courses/*/assignments/*",
+        "https://*.beta.instructure.com/courses/*/assignments/*",
+        "https://*.canvas.com/courses/*/assignments/*"
+      ],
+      "js": [
+        "src/lib/tabulator.min.js",
+        "src/api/canvas-graphql.js",
+        "src/api/canvas-rest.js",
+        "src/utils/state-manager.js",
+
+        "src/messaging/template-variables.js",
+        "src/messaging/file-upload-manager.js",
+        "src/messaging/student-message-modal.js",
+        "src/messaging/bulk-message-dialogs.js",
+        "src/messaging/bulk-student-message-modal.js",
+
+        "src/modal/modal.js",
+        "src/content/content.js"
+      ],
+      "css": [
+        "src/lib/tabulator.min.css",
+        "src/content/content.css",
+        "src/modal/modal.css",
+        "src/modal/tabulator-styling-enhancements.css",
+        "src/messaging/student-message-modal.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/modal/*",
+        "src/lib/*",
+        "icons/*",
+        "help.html",
+        "help.js",
+
+        "src/messaging/tinymce.html",
+        "src/messaging/tinymce.js",
+        "src/messaging/filepond-iframe.html",
+        "src/messaging/filepond-iframe-script.js"
+      ],
+      "matches": ["https://*.instructure.com/*", "https://*.beta.instructure.com/*", "https://*.canvas.com/*"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

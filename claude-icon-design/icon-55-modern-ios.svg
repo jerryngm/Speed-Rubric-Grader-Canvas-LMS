@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Modern - Super clean, iOS style -->
+  <defs>
+    <linearGradient id="grad55" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0d9488"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+  </defs>
+  <!-- Table body - iOS-like radius -->
+  <rect x="6" y="16" width="76" height="76" rx="16" fill="#fff" stroke="url(#grad55)" stroke-width="3"/>
+  <!-- Table header - smooth top -->
+  <path d="M6 32 L6 26 Q6 16 16 16 L72 16 Q82 16 82 26 L82 32 Z" fill="url(#grad55)"/>
+  <!-- Header separator -->
+  <line x1="6" y1="36" x2="82" y2="36" stroke="url(#grad55)" stroke-width="2"/>
+  <!-- Grid - subtle but visible -->
+  <line x1="31" y1="36" x2="31" y2="92" stroke="#0d9488" stroke-width="2" opacity="0.35"/>
+  <line x1="57" y1="36" x2="57" y2="92" stroke="#2563eb" stroke-width="2" opacity="0.35"/>
+  <line x1="6" y1="55" x2="82" y2="55" stroke="#14b8a6" stroke-width="1.5" opacity="0.35"/>
+  <line x1="6" y1="73" x2="82" y2="73" stroke="#3b82f6" stroke-width="1.5" opacity="0.35"/>
+  <!-- Lightning bolt -->
+  <path d="M106 8L82 44h14L88 92l32-54H100L106 8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+</svg>

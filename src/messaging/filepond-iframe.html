@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FilePond (Student Message Modal)</title>
+    <link rel="stylesheet" href="../lib/filepond/filepond.min.css" />
+    <link rel="stylesheet" href="../lib/filepond/filepond-plugin-image-preview.min.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+
+      .filepond-container {
+        padding: 8px;
+      }
+
+      .filepond--root {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="filepond-container">
+      <input type="file" class="filepond-input" name="filepond" multiple />
+    </div>
+
+    <script src="../lib/filepond/filepond.min.js"></script>
+    <script src="../lib/filepond/filepond-plugin-image-preview.min.js"></script>
+    <script src="./filepond-iframe-script.js"></script>
+  </body>
+</html>

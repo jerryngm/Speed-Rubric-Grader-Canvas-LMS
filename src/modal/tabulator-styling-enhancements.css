@@ -1,0 +1,508 @@
+/**
+ * Tabulator Styling Enhancements
+ * Modern, clean design improvements for the rubric grader table
+ * All styles are scoped under #rubric-grader-modal to prevent conflicts
+ */
+
+/* ============================================
+   TABLE CONTAINER & OVERALL STRUCTURE
+   ============================================ */
+
+#rubric-grader-modal #rubric-grader-table .tabulator {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   HEADER ENHANCEMENTS
+   ============================================ */
+
+#rubric-grader-modal #rubric-grader-table .tabulator-header {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 2px solid #e5e7eb;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-col {
+  background: transparent;
+  padding: 10px 8px;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-col-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: normal;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+/* Header icons alignment */
+#rubric-grader-modal #rubric-grader-table .tabulator-col-title .info-icon {
+  margin-left: 6px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-col-title .info-icon:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   CELL ENHANCEMENTS
+   ============================================ */
+
+#rubric-grader-modal #rubric-grader-table .tabulator-cell {
+  padding: 10px 8px;
+  vertical-align: top;
+  border-right: 1px solid #f1f5f9;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-row {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+#rubric-grader-modal #rubric-grader-table .tabulator-row:hover {
+  background-color: #fafbfc;
+}
+
+/* Frozen column styling */
+#rubric-grader-modal #rubric-grader-table .tabulator-frozen {
+  background: #fafbfc;
+  border-right: 2px solid #e5e7eb;
+}
+
+/* Modified cell highlight */
+#rubric-grader-modal #rubric-grader-table .cell-modified {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  box-shadow: inset 3px 0 0 0 #f59e0b;
+}
+
+/* ============================================
+   STUDENT COLUMN ENHANCEMENTS
+   ============================================ */
+
+/* Student name styling */
+#rubric-grader-modal .student-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+/* Student ID styling */
+#rubric-grader-modal .student-id {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+/* Email icon styling */
+#rubric-grader-modal .student-email-icon {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+#rubric-grader-modal .student-email-icon:hover {
+  opacity: 1;
+}
+
+/* Student action button (message/comment) in table */
+#rubric-grader-modal .student-name-cell .rgm-student-action-btn {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#rubric-grader-modal .student-name-cell .rgm-student-action-btn svg {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+#rubric-grader-modal .student-name-cell .rgm-student-action-btn:hover {
+  background: #f8fafc;
+  border-color: #0374B5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(3, 116, 181, 0.15);
+}
+
+#rubric-grader-modal .student-name-cell .rgm-student-action-btn:hover svg {
+  color: #0374B5;
+}
+
+#rubric-grader-modal .student-name-cell .rgm-student-action-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive: maintain grid layout on smaller screens */
+@media (max-width: 1200px) {
+  #rubric-grader-modal .student-name-cell {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+  }
+}
+
+/* Progress bar enhancements */
+#rubric-grader-modal .student-progress-container {
+  margin-top: 6px;
+}
+
+#rubric-grader-modal .student-progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  min-width: 0;
+}
+
+#rubric-grader-modal .student-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress bar colors */
+#rubric-grader-modal .student-progress-fill[style*="width: 100%"] {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+#rubric-grader-modal .student-progress-fill[style*="width: 0%"] {
+  background: #e5e7eb;
+}
+
+#rubric-grader-modal .student-progress-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 3px;
+}
+
+/* ============================================
+   GRADE CONTROLS - MODERN BUTTON GROUPS
+   ============================================ */
+
+#rubric-grader-modal .grade-cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+#rubric-grader-modal .grade-cell-content .grade-controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #fafafafa;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  width: fit-content;
+}
+
+/* Button group styling - unified buttons */
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: all 0.15s ease;
+  border-radius: 6px;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn:hover {
+  background: #f1f5f9;
+  transform: scale(1.05);
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn:active {
+  transform: scale(0.95);
+}
+
+/* Minus button hover */
+#rubric-grader-modal .grade-cell-content .rgm-minus-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* Plus button hover */
+#rubric-grader-modal .grade-cell-content .rgm-plus-btn:hover {
+  background: #dcfce7;
+  color: #10b981;
+}
+
+/* Score display - more prominent */
+#rubric-grader-modal .grade-cell-content .grade-value {
+  min-width: 40px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 0 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: #1e293b;
+  margin: 0 4px;
+}
+
+/* Color-coded score backgrounds */
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background-color: rgb(76, 175, 80)"],
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background: rgb(76, 175, 80)"] {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background-color: rgb(244, 67, 54)"],
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background: rgb(244, 67, 54)"] {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  color: white;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background-color: rgb(255, 152, 0)"],
+#rubric-grader-modal .grade-cell-content .grade-value[style*="background: rgb(255, 152, 0)"] {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: white;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+}
+
+/* Fraction display - more subtle */
+#rubric-grader-modal .grade-cell-content .grade-max {
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 700;
+  margin-left: 2px;
+  margin-right: 8px;
+}
+
+/* ============================================
+   TEXTAREA / COMMENT INPUT ENHANCEMENTS
+   ============================================ */
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.5;
+  color: #1e293b;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: auto;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input:hover {
+  border-color: #cbd5e1;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input:focus {
+  outline: none;
+  border-color: #0374B5;
+  box-shadow: 0 0 0 3px rgba(3, 116, 181, 0.1);
+  background: #ffffff;
+}
+
+#rubric-grader-modal .grade-cell-content .rgm-comment-input::placeholder {
+  color: #94a3b8;
+}
+
+/* ============================================
+   EXPAND/COLLAPSE COMMENT BUTTON ENHANCEMENTS
+   ============================================ */
+
+#rubric-grader-modal .rgm-expand-comment-btn {
+  width: 100%;
+  padding: 3px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  color: #64748b;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#rubric-grader-modal .rgm-expand-comment-btn:hover {
+  background: #f8fafc;
+  border-color: #0374B5;
+  color: #1e293b;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Existing comment state - more prominent */
+#rubric-grader-modal .rgm-expand-comment-btn[data-has-comment="true"] {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1.5px solid #3b82f6;
+  font-weight: 600;
+  color: #1e40af;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.15);
+}
+
+#rubric-grader-modal .rgm-expand-comment-btn[data-has-comment="true"]:hover {
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  border-color: #2563eb;
+  color: #1e40af;
+  box-shadow: 0 3px 6px rgba(59, 130, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Collapse button styling */
+#rubric-grader-modal .rgm-collapse-comment-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  transition: all 0.2s ease;
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#rubric-grader-modal .rgm-collapse-comment-btn:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #ef4444;
+  transform: scale(1.05);
+}
+
+#rubric-grader-modal .rgm-collapse-comment-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   RESPONSIVE ENHANCEMENTS
+   ============================================ */
+
+@media (max-width: 1024px) {
+  #rubric-grader-modal #rubric-grader-table .tabulator-cell {
+    padding: 10px 8px;
+  }
+
+  #rubric-grader-modal .grade-cell-content .grade-controls {
+    padding: 3px;
+  }
+
+  #rubric-grader-modal .grade-cell-content .rgm-grade-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  #rubric-grader-modal #rubric-grader-table .tabulator-col {
+    padding: 10px 8px;
+  }
+
+  #rubric-grader-modal #rubric-grader-table .tabulator-cell {
+    padding: 10px 8px;
+  }
+
+  #rubric-grader-modal .grade-cell-content .grade-value {
+    font-size: 16px;
+    min-width: 36px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/* Focus visible for keyboard navigation */
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn:focus-visible,
+#rubric-grader-modal .rgm-expand-comment-btn:focus-visible,
+#rubric-grader-modal .rgm-collapse-comment-btn:focus-visible {
+  outline: 2px solid #0374B5;
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+#rubric-grader-modal .grade-cell-content .rgm-grade-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ============================================
+   ANIMATION & TRANSITIONS
+   ============================================ */
+
+
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  #rubric-grader-modal #rubric-grader-table .tabulator {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+
+  #rubric-grader-modal #rubric-grader-table .tabulator-row:hover {
+    background-color: transparent;
+  }
+
+  #rubric-grader-modal .grade-cell-content .rgm-grade-btn {
+    border: 1px solid #000;
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FilePond Iframe</title>
+    
+    <!-- FilePond CSS -->
+    <link href="../libs/filepond/filepond.min.css" rel="stylesheet">
+    <link href="../libs/filepond/filepond-plugin-image-preview.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            overflow: hidden;
+        }
+        
+        .filepond-container {
+            width: 100%;
+            min-height: 100px;
+        }
+        
+        /* Hide FilePond credits */
+        .filepond--credits {
+            display: none !important;
+        }
+        
+        /* Ensure FilePond fits within iframe */
+        .filepond--root {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="filepond-container">
+        <input type="file" class="filepond-input" name="filepond" multiple 
+               data-max-file-size="512MB" 
+               data-max-files="10">
+    </div>
+    
+    <!-- FilePond JavaScript -->
+    <script src="../libs/filepond/filepond.min.js"></script>
+    <script src="../libs/filepond/filepond-plugin-image-preview.min.js"></script>
+    <script src="filepond-iframe-script.js"></script>
+</body>
+</html>

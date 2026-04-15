@@ -1,0 +1,60 @@
+
+{
+  "manifest_version": 3,
+  "name": "Enhanced Canvas LMS To Do (Ungraded List)",
+  "version": "2.0",
+  "description": "Full To Do list of ungraded submissions in Canvas LMS.",
+  "host_permissions": [
+    "https://*.instructure.com/*",
+    "https://*.beta.instructure.com/*",
+    "https://*.test.instructure.com/*",
+    "https://*.inscloudgate.net/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.instructure.com/*",
+        "https://*.beta.instructure.com/*",
+        "https://*.test.instructure.com/*"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "libs/datatables.min.css",
+        "libs/datatable-canvas-fix.css",
+        "libs/filepond/filepond.min.css",
+        "libs/filepond/filepond-plugin-image-preview.min.css",
+        "enhanced-todo.css"
+      ],
+      "js": [
+        "libs/datatables.min.js",
+        "libs/moment.min.js",
+        "content.js",
+        "missing-tab.js",
+        "libs/tinymce/tinymce.min.js",
+        "libs/filepond/filepond.min.js",
+        "libs/filepond/filepond-plugin-image-preview.min.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "/images/icon16.png",
+    "32": "/images/icon32.png",
+    "48": "/images/icon48.png",
+    "128": "/images/icon128.png"
+  },
+  "action": {
+    "default_icon": "/images/icon32.png",
+    "default_title": "View Instructions",
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*.png", "images/*.jpg", "images/*.gif", "help.html","libs/tinymce/**", "tinymce.html", "tinymce.js", "filepond-iframe.html", "filepond-iframe-script.js", "images/*.svg"],
+      "matches": [
+        "https://*.instructure.com/*",
+        "https://*.beta.instructure.com/*",
+        "https://*.test.instructure.com/*"
+      ]
+    }
+  ]
+}

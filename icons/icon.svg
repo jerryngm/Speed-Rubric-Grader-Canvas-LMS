@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<style>
+    .lightning {
+        transform-origin: 107px 0px;
+        animation: strike 2.5s ease-out infinite;
+    }
+    @keyframes strike {
+        0% { 
+            transform: translateY(-30px); 
+            opacity: 0;
+            filter: none;
+        }
+        8% { 
+            transform: translateY(0); 
+            opacity: 1;
+            filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 40px #fbbf24);
+        }
+        10% { opacity: 0.2; filter: none; }
+        12% { 
+            opacity: 1;
+            filter: drop-shadow(0 0 25px #fff);
+        }
+        14% { opacity: 0.1; filter: none; }
+        16% { 
+            opacity: 1;
+            filter: drop-shadow(0 0 30px #fff) drop-shadow(0 0 50px #fde68a);
+        }
+        18% { opacity: 0.4; filter: none; }
+        20% { 
+            opacity: 1;
+            filter: drop-shadow(0 0 8px #f59e0b);
+        }
+        90%, 100% { 
+            transform: translateY(0); 
+            opacity: 0;
+            filter: none;
+        }
+    }
+</style>
+  <defs>
+    <linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0" style="stop-color:#0d9488"/>
+      <stop offset="1" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="48.909" y1="18.965" x2="48.909" y2="126.437" id="b" gradientTransform="matrix(.89983 .43623 -.41359 .85312 57.192 -2.765)">
+      <stop offset="0" style="stop-color:rgb(55.686% 88.627% 80.784%)"/>
+      <stop offset="1" style="stop-color:#d4fbff"/>
+    </linearGradient>
+  </defs>
+  <rect x="1.621" y="18.965" width="94.576" height="107.472" rx="8" stroke="url(#a)" stroke-width="3" style="transform-box:fill-box;transform-origin:63.3293% 44.9171%;paint-order:fill;fill:url(#b)"/>
+  <rect x="2.844" y="20.21" width="93.353" height="25.793" rx="8" style="fill:#fff;transform-box:fill-box;transform-origin:62.8488% 182.325%"/>
+  <path fill="url(#a)" style="transform-box:fill-box;transform-origin:63.3293% 361.464%" d="M1.783 37.612h94.576v8.598H1.783z"/>
+  <path stroke="url(#a)" stroke-width="2.5" style="transform-box:fill-box;transform-origin:63.3293% 0" d="M1.621 44.758h94.576"/>
+  <path stroke="#0d9488" stroke-width="2" opacity=".35" style="transform-box:fill-box;transform-origin:0 27.5225%" d="M33.863 44.758v81.679"/>
+  <path stroke="#2563eb" stroke-width="2" opacity=".35" style="transform-box:fill-box;transform-origin:0 27.5225%" d="M66.104 44.758v81.679"/>
+  <path stroke="#14b8a6" stroke-width="1.5" opacity=".35" style="transform-box:fill-box;transform-origin:63.7077% 0" d="M2.967 72.701h91.901"/>
+  <path stroke="#3b82f6" stroke-width="1.5" opacity=".35" style="transform-box:fill-box;transform-origin:63.8954% 0" d="M2.641 100.644h92.141"/>
+  <circle cx="17.742" cy="58.729" r="8.598" fill="#d1fae5" style="transform-box:fill-box;transform-origin:304.561% 99.4818%"/>
+  <path d="m12.583 58.729 3.762 3.762 6.448-7.523" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:479.261% 163.101%"/>
+  <circle cx="80.737" cy="112.296" r="8.598" fill="#d1fae5" style="transform-box:fill-box;transform-origin:-61.7827% -212.031%"/>
+  <path d="m75.578 112.296 3.762 3.761 6.448-7.523" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:-137.739% -548.927%"/>
+  <circle cx="49.334" cy="82.349" r="9.299" fill="#d1fae5" style="transform-origin:100.042% -38.8514%;transform-box:fill-box" transform="matrix(1.20937 0 0 1.18214 2.874 1.414)"/>
+  <path d="m43.513 86.772 4.92 4.808 8.433-9.618" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" style="transform-box:fill-box;transform-origin:134.815% -153.072%"/>
+  <circle cx="80.337" cy="58.312" r="8.598" fill="#fee2e2" style="transform-box:fill-box;transform-origin:-59.4577% 101.907%"/>
+  <path d="m76.038 54.013 8.598 8.598m0-8.598-8.598 8.598" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" style="transform-box:fill-box;transform-origin:-168.915% 153.814%"/>
+  <circle cx="17.102" cy="113.132" r="10.688" fill="#fee2e2" style="transform-box:fill-box;transform-origin:257.767% -164.695%"/>
+  <path d="m11.759 107.788 10.688 10.689m0-10.689-10.688 10.689" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" style="transform-box:fill-box;transform-origin:465.528% -379.396%"/>
+  <path class="lightning" d="M 104.414 2.25 L 78.62 45.239 L 95.816 45.239 L 87.218 96.825 L 121.609 40.94 L 102.264 40.94 L 104.414 2.25 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2" style="transform-box: fill-box; transform-origin: -45.7381% 70.1274%;"/>
+</svg>

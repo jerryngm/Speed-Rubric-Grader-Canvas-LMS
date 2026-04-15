@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Stylized S with Lightning - "Speed" Brand -->
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#grad6)"/>
+  <!-- Stylized S that looks like lightning -->
+  <path d="M82 28H50c-8 0-14 6-14 14v8c0 8 6 14 14 14h28c4 0 8 4 8 8v8c0 4-4 8-8 8H46"
+        fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Lightning accent dots -->
+  <circle cx="92" cy="36" r="6" fill="#fbbf24"/>
+  <circle cx="36" cy="92" r="6" fill="#fbbf24"/>
+</svg>

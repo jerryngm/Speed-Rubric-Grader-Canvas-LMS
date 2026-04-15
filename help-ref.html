@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed Rubric Grader - Help & Documentation</title>
+  <style>
+    /* ========================================================================
+       CSS CUSTOM PROPERTIES (Matching main modal)
+       ======================================================================== */
+    :root {
+      /* Colors */
+      --color-primary: #0374b5;
+      --color-primary-dark: #025a8d;
+      --color-primary-light: #e8f4fc;
+      --color-primary-lighter: #f0f8ff;
+
+      --color-success: #2e7d32;
+      --color-warning: #ffc107;
+      --color-warning-light: #fff3cd;
+      --color-error: #d32f2f;
+
+      --color-text-primary: #333;
+      --color-text-secondary: #666;
+      --color-text-tertiary: #999;
+
+      --color-border: #e0e0e0;
+      --color-border-light: #f0f0f0;
+      --color-border-dark: #ccc;
+
+      --color-bg-primary: #fff;
+      --color-bg-secondary: #f8f9fa;
+      --color-bg-tertiary: #f5f5f5;
+      --color-bg-hover: #f9f9f9;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-pill: 16px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+      /* Transitions */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ========================================================================
+       BASE STYLES
+       ======================================================================== */
+    #help-container {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #help-container * {
+      box-sizing: border-box;
+    }
+
+    /* ========================================================================
+       TAB NAVIGATION
+       ======================================================================== */
+    #help-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-1);
+      background: var(--color-bg-tertiary);
+      border-radius: 10px;
+      position: relative;
+      margin-bottom: var(--space-6);
+      border: 1px solid var(--color-border);
+      width: 100%;
+    }
+
+    #help-tabs::before {
+      content: '';
+      position: absolute;
+      top: var(--space-1);
+      left: var(--space-1);
+      height: calc(100% - 8px);
+      width: calc(33.33% - 5px);
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      transition: transform var(--transition-slow);
+      box-shadow: 0 2px 6px rgba(3, 116, 181, 0.25);
+      z-index: 0;
+    }
+
+    #help-tabs:has(.help-tab-btn[data-tab="getting-started"].active)::before {
+      transform: translateX(calc(100% + 4px));
+    }
+
+    #help-tabs:has(.help-tab-btn[data-tab="changelog"].active)::before {
+      transform: translateX(calc(200% + 8px));
+    }
+
+    .help-tab-btn {
+      flex: 1;
+      padding: 10px var(--space-4);
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      transition: color var(--transition-slow);
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    .help-tab-btn:hover:not(.active) {
+      color: var(--color-text-primary);
+    }
+
+    .help-tab-btn.active {
+      color: white;
+      font-weight: 600;
+    }
+
+    .help-tab-btn span {
+      font-size: 16px;
+    }
+
+    /* ========================================================================
+       TAB CONTENT
+       ======================================================================== */
+    .help-tab-content {
+      display: none;
+      animation: fadeIn var(--transition-slow);
+    }
+
+    .help-tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================================================
+       SECTION STYLES
+       ======================================================================== */
+    .help-section {
+      margin-bottom: var(--space-8);
+    }
+
+    .help-section h2 {
+      font-size: 24px;
+      color: var(--color-text-primary);
+      margin: 0 0 var(--space-4) 0;
+      padding-bottom: var(--space-2);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .help-section h3 {
+      font-size: 18px;
+      color: var(--color-primary);
+      margin: var(--space-6) 0 var(--space-3) 0;
+    }
+
+    .help-section p {
+      margin: 0 0 var(--space-4) 0;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .help-section ul {
+      margin: var(--space-3) 0;
+      padding-left: var(--space-5);
+      color: var(--color-text-secondary);
+    }
+
+    .help-section li {
+      margin-bottom: var(--space-2);
+    }
+
+    /* ========================================================================
+       HERO BANNER
+       ======================================================================== */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+      text-align: center;
+      margin-bottom: var(--space-8);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-banner h1 {
+      margin: 0 0 var(--space-3) 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .hero-banner p {
+      margin: 0;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* ========================================================================
+       FEATURE CARDS
+       ======================================================================== */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+
+    .feature-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      transition: all var(--transition-base);
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+      border-color: var(--color-primary-light);
+    }
+
+    .feature-card h4 {
+      margin: 0 0 var(--space-3) 0;
+      color: var(--color-primary);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ========================================================================
+       STEP LIST
+       ======================================================================== */
+    .step-list {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+      margin: var(--space-6) 0;
+    }
+
+    .step-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 56px;
+      margin-bottom: var(--space-6);
+    }
+
+    .step-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      background: var(--color-primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .step-list li strong {
+      display: block;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+      font-size: 15px;
+    }
+
+    .step-list li p {
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+
+    /* ========================================================================
+       NOTICE BOXES
+       ======================================================================== */
+    .info-box {
+      background: var(--color-primary-lighter);
+      border-left: 4px solid var(--color-primary);
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+      margin: var(--space-4) 0;
+    }
+
+    .info-box strong {
+      color: var(--color-primary);
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    .info-box p, .info-box ul {
+      color: var(--color-text-primary);
+      margin: var(--space-2) 0;
+    }
+
+    .warning-box {
+      background: var(--color-warning-light);
+      border-left: 4px solid var(--color-warning);
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+      margin: var(--space-4) 0;
+    }
+
+    .warning-box strong {
+      color: #f57c00;
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    .success-box {
+      background: #f1f8f4;
+      border-left: 4px solid var(--color-success);
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+      margin: var(--space-4) 0;
+    }
+
+    .success-box strong {
+      color: var(--color-success);
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    /* ========================================================================
+       CHANGELOG
+       ======================================================================== */
+    .changelog-entry {
+      background: white;
+      border-left: 4px solid var(--color-primary);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-4);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .changelog-entry h3 {
+      margin: 0 0 var(--space-2) 0;
+      font-size: 18px;
+      color: var(--color-text-primary);
+    }
+
+    .changelog-date {
+      color: var(--color-text-tertiary);
+      font-size: 13px;
+      margin-bottom: var(--space-3);
+      display: block;
+    }
+
+    .changelog-entry ul {
+      margin: var(--space-2) 0 0 0;
+      padding-left: var(--space-5);
+    }
+
+    .changelog-entry li {
+      margin-bottom: var(--space-2);
+      color: var(--color-text-secondary);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px var(--space-2);
+      border-radius: var(--radius-xl);
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: var(--space-2);
+      text-transform: uppercase;
+    }
+
+    .badge-new { background: var(--color-success); color: white; }
+    .badge-improved { background: var(--color-primary); color: white; }
+    .badge-fixed { background: #ff9800; color: white; }
+
+    /* ========================================================================
+       SUPPORT SECTION
+       ======================================================================== */
+    .support-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      color: white;
+      text-align: center;
+      margin: var(--space-6) 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .support-card h2 {
+      color: white;
+      border: none;
+      margin: 0 0 var(--space-3) 0;
+      font-size: 24px;
+    }
+
+    .support-card p {
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0 0 var(--space-4) 0;
+      font-size: 15px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+
+    .contact-card {
+      background: var(--color-bg-secondary);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      text-align: center;
+      transition: all var(--transition-base);
+    }
+
+    .contact-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .contact-card h4 {
+      margin: 0 0 var(--space-3) 0;
+      color: var(--color-primary);
+      font-size: 16px;
+    }
+
+    .contact-card p {
+      margin: 0 0 var(--space-3) 0;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+    }
+
+    .contact-card a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========================================================================
+       RESPONSIVE
+       ======================================================================== */
+    @media (max-width: 768px) {
+      #help-tabs {
+        width: 100%;
+      }
+
+      .help-tab-btn {
+        font-size: 12px;
+        padding: var(--space-2) var(--space-2);
+      }
+
+      .help-tab-btn span {
+        display: none;
+      }
+
+      .feature-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .support-card,
+      .hero-banner {
+        padding: var(--space-6) var(--space-4);
+      }
+
+      .step-list li {
+        padding-left: 48px;
+      }
+
+      .step-list li::before {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="help-container">
+
+    <!-- Tab Navigation -->
+    <div id="help-tabs">
+      <button class="help-tab-btn active" data-tab="support"><span>💕</span> Support</button>
+      <button class="help-tab-btn" data-tab="getting-started"><span>📚</span> Guide</button>
+      <button class="help-tab-btn" data-tab="changelog"><span>📝</span> Changelog</button>
+    </div>
+
+    <!-- Support Tab -->
+    <div class="help-tab-content active" id="support">
+      <div class="support-card">
+        <h2>Support This Project</h2>
+        <p>If you find this extension helpful, your support would be greatly appreciated!</p>
+        <p>Your support helps keep this tool maintained and constantly improving.</p>
+        <center><a href="https://www.buymeacoffee.com/jerrynguyen" target="_blank"><img class="supportimg" src="https://img.buymeacoffee.com/button-api/?text=Buy me a Cat&emoji=😽&slug=jerrynguyen&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a></center>
+      </div>
+
+      <div class="help-section">
+        <h2>Get Help & Support</h2>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h4>Report Bugs</h4>
+            <p>Found a bug or something not working?</p>
+            <a href="mailto:jerrynguyenihs@yahoo.com?subject=%5BSRG%20-%20Bugs%5D%20Subject&body=Please%20include%20screenshots%20if%20possible..." target="_blank">Send an Email</a>
+          </div>
+
+          <div class="contact-card">
+            <h4>Feature Requests</h4>
+            <p>Have an idea to make this better?</p>
+            <a href="mailto:jerrynguyenihs@yahoo.com?subject=%5BSRG%20-%20Feature%5D%20Subject&body=Please%20describe..." target="_blank">Send an Email</a>
+          </div>
+
+          <div class="contact-card">
+            <h4>Direct Support</h4>
+            <p>Need help or have questions?</p>
+            <a href="mailto:jerrynguyenihs@yahoo.com?subject=%5BSRG%20-%20Help%5D%20Subject&body=Please%20describe...">Send an Email</a>
+          </div>
+        </div>
+
+        <div class="success-box">
+          <strong>Check out my other extensions for Canvas LMS</strong>
+          <p style="margin: 0; color: var(--color-text-secondary);">- <a href="https://chromewebstore.google.com/detail/enhanced-canvas-lms-to-do/amenbpoaeddggiljdfbfbnlgionjfpag" target="_blank"> Enhanced To Do list</a>: this extenstion show a Full To Do list of ungraded submissions in Canvas LMS. </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting Started Tab -->
+    <div class="help-tab-content" id="getting-started">
+      <div class="hero-banner">
+        <h1>Welcome to Speed Rubric Grader!</h1>
+        <p>Grade multiple Canvas submissions quickly using rubrics with bulk actions.</p>
+      </div>
+
+      <div class="help-section">
+        <h2>Quick Start Guide</h2>
+        <p>Get up and running in just a few steps.</p>
+
+        <ol class="step-list">
+          <li>
+            <strong>Navigate to SpeedGrader</strong>
+            <p>Open any assignment in Canvas SpeedGrader. The extension button will appear automatically.</p>
+          </li>
+          <li>
+            <strong>Open the Extension</strong>
+            <p>Click the <strong>"Speed Rubric Grader"</strong> button to open the grading modal.</p>
+          </li>
+          <li>
+            <strong>Select Sections (Optional)</strong>
+            <p>Use the section filter to narrow down which students to load. This is helpful for large courses.</p>
+          </li>
+          <li>
+            <strong>Load Data</strong>
+            <p>Click <strong>"Load Data"</strong> to fetch all student submissions and rubric criteria.</p>
+          </li>
+          <li>
+            <strong>Grade in Bulk</strong>
+            <p>Select rubric ratings for multiple students at once. Use the search and filter tools to find specific students.</p>
+          </li>
+          <li>
+            <strong>Save Changes</strong>
+            <p>Click <strong>"Save Changes"</strong> to submit all grades back to Canvas.</p>
+          </li>
+        </ol>
+
+        <div class="info-box">
+          <strong>Pro Tips</strong>
+          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-5);">
+            <li><strong>Section preferences are saved:</strong> Your selected sections are remembered per course</li>
+            <li><strong>Use keyboard shortcuts:</strong> Tab through cells for faster navigation</li>
+            <li><strong>Toggle comments:</strong> Show/hide the comments column to focus on grades</li>
+            <li><strong>Search students:</strong> Use the search box to quickly find specific students</li>
+          </ul>
+        </div>
+
+        <div class="warning-box">
+          <strong>Important Notes</strong>
+          <ul style="margin: var(--space-2) 0 0 0; padding-left: var(--space-5);">
+            <li>Changes are not saved until you click "Save Changes"</li>
+            <li>The extension requires SpeedGrader to be open on a rubric-enabled assignment</li>
+            <li>All data processing happens locally in your browser</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h2>Features</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h4>Bulk Grading</h4>
+            <p>Grade multiple students at once by selecting rubric ratings in a spreadsheet-like interface.</p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Section Filtering</h4>
+            <p>Filter students by section to focus on specific groups. Preferences are saved per course.</p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Search & Filter</h4>
+            <p>Quickly find students using the search box. Filter by name or other criteria.</p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Comments Support</h4>
+            <p>Add or edit rubric comments for each criterion. Toggle visibility as needed.</p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Settings Backup</h4>
+            <p>Export and import your preferences. Transfer settings between browsers easily.</p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Keyboard Navigation</h4>
+            <p>Navigate efficiently using Tab and arrow keys for faster grading workflows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Changelog Tab -->
+    <div class="help-tab-content" id="changelog">
+      <div class="help-section">
+        <h2>What's New</h2>
+        <p>Track the evolution of the extension with detailed release notes.</p>
+
+        <div class="changelog-entry">
+          <h3>Version 1.0.0 - Initial Release</h3>
+          <span class="changelog-date">February 2026</span>
+          <ul>
+            <li><span class="badge badge-new">New</span> Bulk rubric grading interface</li>
+            <li><span class="badge badge-new">New</span> Section filtering with saved preferences</li>
+            <li><span class="badge badge-new">New</span> Search and filter students</li>
+            <li><span class="badge badge-new">New</span> Comments column with toggle visibility</li>
+            <li><span class="badge badge-new">New</span> Settings export/import functionality</li>
+            <li><span class="badge badge-new">New</span> Keyboard navigation support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="help.js"></script>
+</body>
+</html>

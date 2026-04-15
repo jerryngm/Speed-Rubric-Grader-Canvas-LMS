@@ -1,0 +1,64 @@
+================================
+SPEED RUBRIC GRADER - v1.1.0
+Chrome Web Store Release Package
+================================
+
+PACKAGE CONTENTS:
+- Speed-Rubric-Grader-v1.1.0.zip (Ready for Chrome Web Store submission)
+
+WHAT'S INCLUDED IN THE ZIP:
+✓ manifest.json - Extension configuration (v1.1.0)
+✓ popup.html/css - Extension popup interface
+✓ help.html - User help and documentation
+✓ help.js - Help page functionality
+✓ content.js/css - Canvas SpeedGrader integration
+✓ state-manager.js - State management utility
+✓ scope-css.js - CSS scoping utility
+✓ src/lib/ - TinyMCE and Filepond libraries
+✓ icons/ - Extension icons (16px, 32px, 48px, 128px, SVG)
+
+VERSION 1.1.0 RELEASE NOTES:
+✨ NEW: Toolbar is now collapsible, giving you more space to grade
+🐛 FIXED: Better handling of errors with empty grades
+
+PREVIOUS VERSION (1.0.0):
+- Bulk rubric grading interface
+- Section filtering with saved preferences
+- Search and filter students
+- Comments column with toggle visibility
+- Settings export/import functionality
+- Keyboard navigation support
+
+SUBMISSION INSTRUCTIONS:
+1. Go to Chrome Web Store Developer Dashboard
+2. Click "Upload new package"
+3. Select: Speed-Rubric-Grader-v1.1.0.zip
+4. Update release notes to match VERSION 1.1.0 content above
+5. Submit for review
+
+TESTING CHECKLIST BEFORE SUBMISSION:
+☐ Load unpacked: Open Chrome and go to chrome://extensions
+☐ Enable "Developer mode"
+☐ Click "Load unpacked" and select the Speed-Rubric-Grader folder
+☐ Test on a Canvas SpeedGrader assignment
+☐ Verify toolbar collapse feature works
+☐ Verify error handling with empty grades
+☐ Test all core features (grading, filtering, search, comments, export/import)
+
+IMPORTANT FILES TO VERIFY:
+- manifest.json version matches (1.1.0)
+- help.html has updated changelog with v1.1.0 entries
+- All permission entries are correct
+- Icons are in the correct sizes
+
+SUPPORT & CONTACT:
+Report Issues: jerrynguyenihs@yahoo.com (subject: [SRG - Bugs])
+Feature Requests: jerrynguyenihs@yahoo.com (subject: [SRG - Feature])
+Direct Support: jerrynguyenihs@yahoo.com (subject: [SRG - Help])
+
+Store Link: 
+https://chromewebstore.google.com/detail/speed-rubric-grader-canva/oekhapobblfhhagnipdghdebkhbhpbil
+
+================================
+Ready for Chrome Web Store Publication!
+================================

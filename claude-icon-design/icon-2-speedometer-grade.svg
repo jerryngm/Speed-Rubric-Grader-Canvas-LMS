@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Speedometer with Grade A - Performance + Excellence -->
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#grad2)"/>
+  <!-- Speedometer arc -->
+  <path d="M32 88 A40 40 0 1 1 96 88" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="10" stroke-linecap="round"/>
+  <!-- Speed indicator arc (filled portion) -->
+  <path d="M32 88 A40 40 0 0 1 88 40" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <!-- Needle pointing to high speed -->
+  <line x1="64" y1="72" x2="82" y2="46" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/>
+  <!-- Center dot -->
+  <circle cx="64" cy="72" r="8" fill="#fff"/>
+  <!-- A grade text -->
+  <text x="64" y="108" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">A+</text>
+</svg>

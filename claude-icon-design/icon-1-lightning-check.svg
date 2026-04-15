@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Lightning Checkmark - Speed + Completion -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#grad1)"/>
+  <!-- Lightning bolt forming a checkmark -->
+  <path d="M72 24L42 64h20L52 104l38-48H68L72 24z" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+  <!-- Subtle checkmark overlay -->
+  <path d="M38 68l18 18 34-40" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

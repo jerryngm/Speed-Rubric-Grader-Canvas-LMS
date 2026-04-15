@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  text-align: center;
+}
+
+.graphic {
+  margin: 0;
+  padding-top:5px;
+}
+
+.content {
+  margin: 0 auto;
+  padding: 5px;
+  width: 340px;
+  background:#242222;
+  color:white;
+}
+
+.content p {
+  font-size: 15px;
+  margin: 5px;
+}
+
+
+img.supportimg {
+  width: 65% !important;
+}
+
+ul.supportlink {
+  font-size: 15px;
+  margin: 5px;
+}
+
+a:link { color: lightskyblue; }
+a:visited { color: #8a71a1; }
+a:hover { color: #ffffff; }
+a:active { color: #ff4040; text-decoration:none; font-weight:normal; }
+
+hr {
+  border-top: 1px dotted rgb(244, 161, 7);
+  margin: 12px;
+}
+
+ol.instructions {
+  font-size: 15px;
+  margin: 5px;
+}
+
+li {
+  margin-bottom: 5px;
+  text-align: left;
+}
+

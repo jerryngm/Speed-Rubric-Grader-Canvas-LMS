@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Small Promo Tile - 440x280</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      padding: 40px;
+    }
+
+    .tile {
+      width: 440px;
+      height: 280px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Subtle grid pattern overlay */
+    .tile::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 36px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+
+    .badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      max-width: 320px;
+    }
+
+    /* Floating UI mockup */
+    .ui-preview {
+      position: absolute;
+      bottom: -20px;
+      right: -30px;
+      width: 220px;
+      height: 140px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+      transform: perspective(800px) rotateY(-8deg) rotateX(5deg);
+    }
+
+    .ui-header {
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ui-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .ui-dot.red { background: #ff5f57; }
+    .ui-dot.yellow { background: #febc2e; }
+    .ui-dot.green { background: #28c840; }
+
+    .ui-grid {
+      padding: 8px;
+    }
+
+    .ui-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .ui-cell {
+      height: 18px;
+      border-radius: 3px;
+      flex: 1;
+    }
+
+    .ui-cell.header {
+      background: #e9ecef;
+    }
+
+    .ui-cell.name {
+      background: #f1f3f4;
+      flex: 1.5;
+    }
+
+    .ui-cell.grade-high { background: #d4edda; }
+    .ui-cell.grade-mid { background: #fff3cd; }
+    .ui-cell.grade-low { background: #f8d7da; }
+  </style>
+</head>
+<body>
+  <div class="tile">
+    <div class="content">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        Canvas LMS
+      </div>
+      <h1 class="title">Speed Rubric<br>Grader</h1>
+      <p class="subtitle">Grade all students at once in a powerful spreadsheet view</p>
+    </div>
+
+    <div class="ui-preview">
+      <div class="ui-header">
+        <div class="ui-dot red"></div>
+        <div class="ui-dot yellow"></div>
+        <div class="ui-dot green"></div>
+      </div>
+      <div class="ui-grid">
+        <div class="ui-row">
+          <div class="ui-cell header name"></div>
+          <div class="ui-cell header"></div>
+          <div class="ui-cell header"></div>
+          <div class="ui-cell header"></div>
+        </div>
+        <div class="ui-row">
+          <div class="ui-cell name"></div>
+          <div class="ui-cell grade-high"></div>
+          <div class="ui-cell grade-high"></div>
+          <div class="ui-cell grade-mid"></div>
+        </div>
+        <div class="ui-row">
+          <div class="ui-cell name"></div>
+          <div class="ui-cell grade-mid"></div>
+          <div class="ui-cell grade-high"></div>
+          <div class="ui-cell grade-high"></div>
+        </div>
+        <div class="ui-row">
+          <div class="ui-cell name"></div>
+          <div class="ui-cell grade-high"></div>
+          <div class="ui-cell grade-low"></div>
+          <div class="ui-cell grade-high"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

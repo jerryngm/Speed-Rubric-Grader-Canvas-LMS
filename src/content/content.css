@@ -1,0 +1,27 @@
+/* Canvas Rubric Grader - Content Script Styles */
+
+#canvas-rubric-grader-btn,
+#canvas-rubric-grader-btn-nav,
+#canvas-rubric-grader-btn-assignment {
+  background-color: #0374B5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+#canvas-rubric-grader-btn:hover,
+#canvas-rubric-grader-btn-nav:hover,
+#canvas-rubric-grader-btn-assignment:hover {
+  background-color: #025a8e;
+}
+
+#canvas-rubric-grader-btn:active,
+#canvas-rubric-grader-btn-nav:active,
+#canvas-rubric-grader-btn-assignment:active {
+  background-color: #014a75;
+}

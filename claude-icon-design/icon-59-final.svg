@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- FINAL RECOMMENDED - Modern, balanced, professional -->
+  <defs>
+    <linearGradient id="gradFinal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0d9488"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+  </defs>
+  <!-- Table body - perfect square proportions -->
+  <rect x="6" y="14" width="76" height="76" rx="12" fill="#fff" stroke="url(#gradFinal)" stroke-width="3"/>
+  <!-- Table header - smooth rounded top -->
+  <path d="M6 30 L6 22 Q6 14 14 14 L74 14 Q82 14 82 22 L82 30 Z" fill="url(#gradFinal)"/>
+  <!-- Header separator - clean line -->
+  <line x1="6" y1="34" x2="82" y2="34" stroke="url(#gradFinal)" stroke-width="2.5"/>
+  <!-- Grid - balanced 3x3 -->
+  <line x1="31" y1="34" x2="31" y2="90" stroke="#0d9488" stroke-width="2" opacity="0.4"/>
+  <line x1="57" y1="34" x2="57" y2="90" stroke="#2563eb" stroke-width="2" opacity="0.4"/>
+  <line x1="6" y1="53" x2="82" y2="53" stroke="#14b8a6" stroke-width="1.5" opacity="0.4"/>
+  <line x1="6" y1="71" x2="82" y2="71" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+  <!-- Lightning bolt - perfectly positioned -->
+  <path d="M106 6L80 44h15L86 94l34-56H102L106 6z" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+</svg>
