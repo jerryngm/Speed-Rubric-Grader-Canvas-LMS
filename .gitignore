@@ -19,6 +19,13 @@ Desktop.ini
 # AI assistant
 .claude/
 
+# Dev/design exploration (not part of the extension)
+claude-icon-design/
+Promo/
+plans/
+PROJECT_CONTEXT.md
+SCOUT_REPORT.md
+
 # Python
 __pycache__/
 *.py[cod]
