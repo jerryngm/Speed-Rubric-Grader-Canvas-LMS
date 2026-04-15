@@ -1,0 +1,42 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Build artifacts / packaged extension
+*.zip
+*.crx
+
+# AI assistant
+.claude/
+
+# Dev/design exploration (not part of the extension)
+claude-icon-design/
+Promo/
+plans/
+PROJECT_CONTEXT.md
+SCOUT_REPORT.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node / npm (if ever used)
+node_modules/
+npm-debug.log*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
